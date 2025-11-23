@@ -1,0 +1,38 @@
+Risk Profile,Duration,Rank,Fund Name,Category,Type,AUM (Cr),Expense Ratio,1Y Return %,3Y Return %,5Y Return %,Min Investment,Rating,Remarks
+Low Risk,< 6 months,1,HDFC Liquid Fund,Liquid,Debt,45872,0.25,6.96,6.96,5.63,500,5,Consistently top liquid fund; minimal volatility
+Low Risk,< 6 months,2,Nippon India Liquid Fund,Liquid,Debt,37419,0.21,7.12,7.02,5.51,500,5,Fast redemption; strong returns
+Low Risk,< 6 months,3,ICICI Prudential Liquid Fund,Liquid,Debt,48658,0.25,7.03,6.99,5.57,500,5,Good for large emergency corpus
+Low Risk,6 months to 1 year,1,Aditya Birla Sun Life Short-Term Fund,Short Duration Debt,Debt,10854,0.40,7.62,7.04,6.14,1000,5,Stable short-duration option
+Low Risk,6 months to 1 year,2,HDFC Short Term Debt Fund,Short Duration Debt,Debt,24972,0.40,7.51,7.07,6.19,1000,5,Top-rated with consistent returns
+Low Risk,6 months to 1 year,3,IDFC Banking & PSU Debt Fund,Banking & PSU,Debt,14921,0.35,7.24,7.12,6.23,1000,4,Low credit risk
+Low Risk,> 1 year,1,ICICI Prudential Gilt Fund,Gilt,Debt,9137,0.53,7.65,8.03,6.25,5000,5,All-Gsec; best for risk-averse
+Low Risk,> 1 year,2,SBI Magnum Gilt Fund,Gilt,Debt,9772,0.54,7.58,8.01,6.19,5000,5,Safe returns
+Low Risk,> 1 year,3,Axis Gilt Fund,Gilt,Debt,2241,0.47,7.51,7.98,6.12,5000,4,Consistently strong in low-risk bucket
+Moderate Risk,< 6 months,1,Axis Treasury Advantage Fund,Ultra Short Duration,Debt,4162,0.28,7.02,7.05,6.17,500,4,Good for higher liquidity with moderate risk
+Moderate Risk,< 6 months,2,HDFC Ultra Short Term Fund,Ultra Short Duration,Debt,6842,0.33,7.08,7.19,5.99,500,4,Spreads risk well; high-quality
+Moderate Risk,< 6 months,3,ICICI Prudential Ultra Short Term,Ultra Short Duration,Debt,7294,0.31,6.96,7.04,5.88,500,4,Good credit quality
+Moderate Risk,6 months to 1 year,1,SBI Conservative Hybrid Fund,Conservative Hybrid,Hybrid,4245,0.73,7.41,8.83,8.27,5000,4,Debt focus with limited equity
+Moderate Risk,6 months to 1 year,2,ICICI Pru Regular Savings Fund,Conservative Hybrid,Hybrid,5791,1.11,7.65,9.02,8.13,5000,5,Top return among conservative hybrids
+Moderate Risk,6 months to 1 year,3,Kotak Debt Hybrid Fund,Conservative Hybrid,Hybrid,3310,0.83,7.53,8.22,7.94,5000,4,Low volatility
+Moderate Risk,> 1 year,1,ICICI Prudential Equity & Debt Fund,Aggressive Hybrid,Hybrid,40732,1.12,14.23,17.92,17.71,100,5,Dynamic rebalancing
+Moderate Risk,> 1 year,2,HDFC Balanced Advantage Fund,Balanced Advantage,Hybrid,94866,1.12,12.63,15.42,15.37,100,5,Huge AUM
+Moderate Risk,> 1 year,3,Canara Robeco Equity Hybrid Fund,Aggressive Hybrid,Hybrid,6014,0.78,12.14,15.22,13.88,1000,4,Stable
+Medium Risk,< 6 months,1,IDFC Low Duration Fund,Low Duration Debt,Debt,8845,0.33,7.16,7.12,6.08,500,4,Shorter Maturity
+Medium Risk,< 6 months,2,Nippon India Low Duration Fund,Low Duration Debt,Debt,10492,0.35,7.04,6.96,6.13,500,4,Liquidity
+Medium Risk,< 6 months,3,Franklin India Low Duration Fund,Low Duration Debt,Debt,2903,0.36,7.11,6.84,6.09,500,4,Regular performer
+Medium Risk,6 months to 1 year,1,HDFC Hybrid Debt Fund,Dynamic Asset Allocation,Hybrid,2746,0.54,12.74,14.62,13.58,500,4,Hybrid allocation
+Medium Risk,6 months to 1 year,2,Edelweiss Balanced Advantage Fund,Balanced Advantage,Hybrid,5199,1.28,11.09,13.48,13.29,500,4,Active asset allocation
+Medium Risk,6 months to 1 year,3,Nippon India Balanced Advantage Fund,Balanced Advantage,Hybrid,16305,0.98,11.03,11.41,11.09,500,4,Decent 5Y record
+Medium Risk,> 1 year,1,HDFC Large Cap Fund,Large Cap,Equity,39779,0.94,13.2,16.51,20.14,100,5,Stable
+Medium Risk,> 1 year,2,ICICI Prudential Large Cap Fund,Large Cap,Equity,73034,1.08,6.77,18.74,22.19,100,5,High AUM
+Medium Risk,> 1 year,3,Mirae Asset Large Cap Fund,Large Cap,Equity,35519,0.58,14.69,17.87,21.01,1000,5,Cost efficient
+High Risk,< 6 months,1,Not recommended,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,No equity/smallcap recommended for <6 months
+High Risk,< 6 months,2,Not recommended,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,No equity/smallcap recommended for <6 months
+High Risk,< 6 months,3,Not recommended,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,No equity/smallcap recommended for <6 months
+High Risk,6 months to 1 year,1,Axis Dynamic Equity Fund,Dynamic Asset Allocation,Hybrid,6243,1.10,13.43,14.63,14.02,500,4,Slightly higher equity allocation
+High Risk,6 months to 1 year,2,ICICI Prudential Balanced Advantage Fund,Balanced Advantage,Hybrid,43856,1.09,11.43,13.86,14.18,1000,4,Dynamic aggressive moves
+High Risk,6 months to 1 year,3,Motilal Oswal Dynamic Fund,Dynamic Asset Allocation,Hybrid,2640,0.84,12.18,14.57,13.42,500,4,Good performance with higher equity fraction
+High Risk,> 1 year,1,Nippon India Small Cap Fund,Small Cap,Equity,66136,1.13,-1.07,20.14,33.53,100,5,High return
+High Risk,> 1 year,2,HDFC Midcap Opportunities Fund,Mid Cap,Equity,84854,0.94,8.12,20.22,30.35,100,5,Mature
+High Risk,> 1 year,3,Quant Small Cap Fund,Small Cap,Equity,29288,0.76,1.23,24.58,32.90,1000,5,Best 5Y CAGR in small-cap
+High Risk,> 1 year,4,Parag Parikh Flexi Cap Fund,Flexi Cap,Equity,119723,0.83,10.17,17.68,23.39,1000,5,Flexibility across market caps
