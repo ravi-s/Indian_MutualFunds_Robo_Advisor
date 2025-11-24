@@ -13,6 +13,7 @@
 #   - Registration (with consent + email validation)
 #   - SQLite persistence (db.py)
 #   - Admin/analytics page (?admin=1 in URL)
+#   - Analytics (Phase 2 logic)
 
 import re
 from typing import Dict

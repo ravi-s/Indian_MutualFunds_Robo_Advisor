@@ -1,0 +1,121 @@
+Risk Profile,Duration,Rank,Fund Name,Category,Type,AUM (Cr),Expense Ratio,1Y Return %,3Y Return %,5Y Return %,Min Investment,Rating,Remarks
+Low Risk,< 6 months,1,Aditya Birla Sun Life Liquid Fund,Liquid Fund,Debt,56938,0.21,6.8,7.1,5.8,500,5,"Highest rated liquid fund, best for emergency funds"
+Low Risk,< 6 months,2,Edelweiss Liquid Fund,Liquid Fund,Debt,10620,0.1,6.8,7.1,5.8,500,5,Lowest expense ratio in liquid funds category
+Low Risk,< 6 months,3,Axis Liquid Direct Fund,Liquid Fund,Debt,35360,0.14,6.8,7.1,5.8,500,5,"High AUM, consistent performance"
+Low Risk,< 6 months,4,PGIM India Liquid Fund,Liquid Fund,Debt,573,0.12,6.8,7.1,5.8,500,4,"Good performers, slightly smaller AUM"
+Low Risk,< 6 months,5,Sundaram Liquid Fund,Liquid Fund,Debt,7497,0.13,6.8,7.1,5.8,500,4,Strong track record in liquid category
+Low Risk,< 6 months,6,Canara Robeco Liquid Fund,Liquid Fund,Debt,7328,0.08,6.8,7.1,5.8,500,4,Very low expense ratio
+Low Risk,< 6 months,7,HSBC Liquid Fund,Liquid Fund,Debt,16880,0.12,6.8,7.1,5.8,500,4,"Established fund house, good liquidity"
+Low Risk,< 6 months,8,Nippon India Liquid Fund,Liquid Fund,Debt,30230,0.2,6.8,7.1,5.8,500,4,"Large fund, solid performer"
+Low Risk,< 6 months,9,Franklin India Liquid Fund,Liquid Fund,Debt,3235,0.13,6.8,7.1,5.8,500,4,Good performance track record
+Low Risk,< 6 months,10,DSP Liquidity Fund,Liquid Fund,Debt,19054,0.1,6.8,7.1,5.8,500,4,"Low expense ratio, established performer"
+Low Risk,6 months to 1 year,1,ICICI Prudential Gilt Fund,Gilt Fund,Debt,9146,0.57,7.7,8.3,6.8,5000,5,"Highest rated gilt fund, government securities backed"
+Low Risk,6 months to 1 year,2,Baroda BNP Paribas Gilt Fund,Gilt Fund,Debt,1341,0.14,6.7,8.1,5.8,5000,5,Lowest expense ratio in gilt funds
+Low Risk,6 months to 1 year,3,Axis Gilt Fund,Gilt Fund,Debt,575,0.42,6.1,7.9,6.0,5000,4,Government-backed securities
+Low Risk,6 months to 1 year,4,SBI Magnum Gilt Fund,Gilt Fund,Debt,11054,0.46,5.7,7.9,6.4,5000,4,"Large fund, SBI backing"
+Low Risk,6 months to 1 year,5,Tata Gilt Securities Fund,Gilt Fund,Debt,1338,0.27,6.2,7.9,5.8,5000,4,Moderate expense ratio
+Low Risk,6 months to 1 year,6,PGIM India Gilt Fund,Gilt Fund,Debt,105,0.55,5.3,7.7,6.0,5000,4,Safe government securities
+Low Risk,6 months to 1 year,7,HDFC Gilt Fund,Gilt Fund,Debt,2944,0.46,6.1,7.6,5.6,5000,4,"HDFC backed, stable"
+Low Risk,6 months to 1 year,8,Franklin India Government Securities Fund,Gilt Fund,Debt,172,0.62,6.1,6.6,5.1,5000,4,Government securities focus
+Low Risk,6 months to 1 year,9,DSP Gilt Fund,Gilt Fund,Debt,1342,0.57,5.0,7.8,6.1,5000,3,Consistent performer
+Low Risk,6 months to 1 year,10,Invesco India Gilt Fund,Gilt Fund,Debt,333,0.46,4.9,7.8,5.5,5000,3,Government securities allocation
+Low Risk,> 1 year,1,Axis Short Term Fund,Short Duration Debt,Debt,12200,0.38,8.4,7.5,6.2,5000,5,"Low to moderate risk, balanced returns"
+Low Risk,> 1 year,2,Aditya Birla Sun Life Short Term Fund,Short Duration Debt,Debt,10695,0.36,8.4,7.5,6.2,5000,5,Lowest expense ratio in category
+Low Risk,> 1 year,3,HDFC Short Term Debt Fund,Short Duration Debt,Debt,17621,0.4,8.3,7.4,6.6,5000,5,"Large fund, consistent returns"
+Low Risk,> 1 year,4,Baroda BNP Paribas Short Duration Fund,Short Duration Debt,Debt,271,0.44,8.3,7.3,6.1,5000,4,"Moderate returns, stable"
+Low Risk,> 1 year,5,Mahindra Manulife Short Duration Fund,Short Duration Debt,Debt,72,0.28,8.3,7.3,6.1,5000,4,Very low expense ratio
+Low Risk,> 1 year,6,Bandhan Bond Fund - Short Term Plan,Short Duration Debt,Debt,10673,0.34,8.2,7.2,6.0,5000,4,"Good AUM, balanced approach"
+Low Risk,> 1 year,7,Kotak Bond Fund Short Term Plan,Short Duration Debt,Debt,18155,0.39,8.2,7.2,6.0,5000,4,Highest AUM in short duration
+Low Risk,> 1 year,8,Mirae Asset Short Duration Fund,Short Duration Debt,Debt,800,0.35,8.2,6.8,6.4,5000,4,Solid performance
+Low Risk,> 1 year,9,ICICI Prudential Short Term Fund,Short Duration Debt,Debt,22880,0.42,8.1,7.0,6.0,5000,4,"Large fund, reliable"
+Low Risk,> 1 year,10,Sundaram Short Duration Fund,Short Duration Debt,Debt,194,0.41,8.0,6.9,5.9,5000,4,Balanced exposure
+Moderate Risk,< 6 months,1,SBI Nifty 50 ETF,Index Fund/ETF,Equity Index,213819,0.04,9.28,46.1,110.7,500,5,"Ultra-low expense ratio, highly liquid"
+Moderate Risk,< 6 months,2,UTI Nifty 50 ETF,Index Fund/ETF,Equity Index,68210,0.05,9.85,46.1,111.32,500,5,"Very low costs, broad market exposure"
+Moderate Risk,< 6 months,3,Nippon Nifty 50 ETF (NIFTYBEES),Index Fund/ETF,Equity Index,54343,0.04,9.52,46.19,116.34,500,5,"Most traded ETF, excellent liquidity"
+Moderate Risk,< 6 months,4,ICICI Pru Nifty 50 ETF,Index Fund/ETF,Equity Index,35159,0.02,9.54,27.35,27.35,500,5,Lowest expense ratio (0.02%)
+Moderate Risk,< 6 months,5,HDFC Nifty 50 ETF,Index Fund/ETF,Equity Index,4628,0.05,9.3,41.48,116.48,500,4,Low-cost index tracking
+Moderate Risk,< 6 months,6,Kotak Nifty 50 ETF,Index Fund/ETF,Equity Index,3260,0.03,8.69,19.96,19.96,500,4,Very competitive expense ratio
+Moderate Risk,< 6 months,7,Aditya Birla Nifty 50 ETF,Index Fund/ETF,Equity Index,3236,0.04,9.68,45.98,116.76,500,4,Consistent index tracking
+Moderate Risk,< 6 months,8,Axis Nifty 50 ETF,Index Fund/ETF,Equity Index,1112,0.04,9.74,46.3,118.74,500,4,Best 5-year performance among peers
+Moderate Risk,< 6 months,9,Mirae Asset Nifty 50 ETF,Index Fund/ETF,Equity Index,4746,0.04,9.68,36.4,36.4,500,4,Good index performance
+Moderate Risk,< 6 months,10,LIC Nifty 50 ETF,Index Fund/ETF,Equity Index,903,0.06,9.31,45.56,124.18,500,4,"Solid returns, LIC backing"
+Moderate Risk,6 months to 1 year,1,Quant Multi Asset Allocation Fund,Hybrid Fund,Balanced,3200,0.55,12.59,22.05,27.93,5000,5,"Top performer, diversified allocation"
+Moderate Risk,6 months to 1 year,2,Nippon India Multi Asset Allocation Fund,Hybrid Fund,Balanced,2500,0.63,16.92,21.54,19.16,5000,4,Strong recent performance
+Moderate Risk,6 months to 1 year,3,JM Aggressive Hybrid Fund,Hybrid Fund,Aggressive Hybrid,3500,0.68,-0.75,21.34,20.99,5000,4,Good 3-5 year performance
+Moderate Risk,6 months to 1 year,4,UTI Multi Asset Allocation Fund,Hybrid Fund,Balanced,2800,0.58,10.34,20.71,16.69,5000,3,Solid multi-asset approach
+Moderate Risk,6 months to 1 year,5,Bank of India Mid & Small Cap Equity & Debt Fund,Hybrid Fund,Aggressive Hybrid,1500,0.72,1.56,20.24,23.04,5000,4,Unique mid-small cap allocation
+Moderate Risk,6 months to 1 year,6,ICICI Prudential Multi Asset Fund,Hybrid Fund,Balanced,2200,0.62,13.36,19.99,25.37,5000,4,Diversified holdings
+Moderate Risk,6 months to 1 year,7,ICICI Prudential Equity & Debt Fund,Hybrid Fund,Balanced,2400,0.66,10.2,19.74,25.66,5000,4,Balanced equity-debt mix
+Moderate Risk,6 months to 1 year,8,HDFC Balanced Advantage Fund,Hybrid Fund,Balanced Advantage,94866,0.53,6.32,19.0,23.27,5000,4,"Largest hybrid fund, dynamic allocation"
+Moderate Risk,6 months to 1 year,9,Edelweiss Aggressive Hybrid Fund,Hybrid Fund,Aggressive Hybrid,1200,0.6,8.01,18.83,20.59,5000,3,Moderate to aggressive tilt
+Moderate Risk,6 months to 1 year,10,Mahindra Manulife Aggressive Hybrid Fund,Hybrid Fund,Aggressive Hybrid,900,0.61,7.98,18.6,20.93,5000,3,Consistent performer
+Moderate Risk,> 1 year,1,HDFC Large Cap Fund,Large Cap,Equity,39779,0.97,4.2,16.4,20.2,100,5,"Large AUM, stable large-cap exposure"
+Moderate Risk,> 1 year,2,ICICI Prudential Large Cap Fund,Large Cap,Equity,75863,0.85,7.8,18.6,20.7,100,5,"Highest AUM, consistent performer"
+Moderate Risk,> 1 year,3,Nippon India Large Cap Fund,Large Cap,Equity,46463,0.67,7.7,19.9,23.9,100,5,Strong 5-year returns
+Moderate Risk,> 1 year,4,DSP Large Cap Fund,Large Cap,Equity,6933,0.81,5.8,18.6,18.0,100,5,"Stable, balanced approach"
+Moderate Risk,> 1 year,5,DSP Nifty 50 Equal Weight Index Fund,Index Fund/ETF,Equity Index,2390,0.41,7.3,17.2,21.7,100,5,"Equal weight index, lower cost"
+Moderate Risk,> 1 year,6,ICICI Prudential BHARAT 22 FOF,Large Cap,Equity,2353,0.12,1.8,26.9,33.1,5000,5,"Ultra-low expense ratio, strong 5Y returns"
+Moderate Risk,> 1 year,7,Invesco India Largecap Fund,Large Cap,Equity,1687,0.71,7.1,18.9,19.5,100,4,"Good performer, lower AUM"
+Moderate Risk,> 1 year,8,Bandhan Large Cap Fund,Large Cap,Equity,1916,0.86,7.4,17.9,18.4,100,4,"Emerging fund house, decent returns"
+Moderate Risk,> 1 year,9,HDFC NIFTY 100 Equal Weight Index Fund,Index Fund/ETF,Equity Index,424,0.4,4.8,17.6,,100,4,Broader market coverage
+Moderate Risk,> 1 year,10,Edelweiss Large Cap Fund,Large Cap,Equity,1336,0.61,4.8,16.8,18.3,100,4,Solid large-cap exposure
+Medium Risk,< 6 months,1,UTI-Nifty Next 50 Index Fund,Index Fund/ETF,Equity Index,5941,0.34,0.52,18.08,20.04,100,5,Good mid-cap index exposure
+Medium Risk,< 6 months,2,DSP Nifty Next 50 Index Fund,Index Fund/ETF,Equity Index,1180,0.28,0.35,18.1,20.06,100,4,Very low expense ratio
+Medium Risk,< 6 months,3,Motilal Oswal Nifty Next 50 Index Fund,Index Fund/ETF,Equity Index,393,0.32,0.56,18.13,19.99,100,4,Cost-effective mid-cap index
+Medium Risk,< 6 months,4,ICICI Pru Nifty Next 50 Index Fund,Index Fund/ETF,Equity Index,8139,0.31,0.09,17.91,19.89,100,4,"Large AUM, good consistency"
+Medium Risk,< 6 months,5,Axis Nifty Midcap 50 Index Fund,Index Fund/ETF,Equity Index,518,0.25,11.0,25.7,,100,3,Mid-cap specific exposure
+Medium Risk,< 6 months,6,Motilal Oswal Nifty 500 Index Fund,Index Fund/ETF,Equity Index,2662,0.17,5.17,15.9,18.79,100,4,"Broad market coverage, very low cost"
+Medium Risk,< 6 months,7,Motilal Oswal Nifty Midcap 150 Index Fund,Index Fund/ETF,Equity Index,2816,0.26,7.5,23.6,27.0,100,3,Mid-cap 150 index
+Medium Risk,< 6 months,8,Aditya Birla Sun Life Nifty Midcap 150 Index Fund,Index Fund/ETF,Equity Index,405,0.44,7.2,23.5,,100,3,Mid-cap diversification
+Medium Risk,< 6 months,9,UTI-Nifty 500 Value 50 Index Fund,Index Fund/ETF,Equity Index,543,0.62,7.0,,,100,3,Value-focused broad market
+Medium Risk,< 6 months,10,Bandhan Nifty 50 Index Fund,Index Fund/ETF,Equity Index,2111,0.1,7.11,13.42,16.26,100,3,"Very low cost, large cap exposure"
+Medium Risk,6 months to 1 year,1,Motilal Oswal Midcap Fund,Mid Cap,Equity,37500,0.7,-0.8,27.5,33.0,100,5,"Top mid-cap performer, excellent 5Y returns"
+Medium Risk,6 months to 1 year,2,HDFC Mid Cap Fund,Mid Cap,Equity,89383,0.71,9.2,26.6,29.5,100,5,"Largest mid-cap fund, solid performance"
+Medium Risk,6 months to 1 year,3,Edelweiss Mid Cap Fund,Mid Cap,Equity,12646,0.4,7.9,26.4,30.0,100,5,"Low expense ratio, excellent returns"
+Medium Risk,6 months to 1 year,4,Invesco India Mid Cap Fund,Mid Cap,Equity,9319,0.54,14.5,28.4,28.7,100,4,Strong 1Y and 3Y performance
+Medium Risk,6 months to 1 year,5,WhiteOak Capital Mid Cap Fund,Mid Cap,Equity,4075,0.54,11.8,27.6,,100,5,Emerging star performer
+Medium Risk,6 months to 1 year,6,Nippon India Growth Mid Cap Fund,Mid Cap,Equity,41267,0.74,6.3,26.2,29.2,100,4,"Large AUM, consistent mid-cap exposure"
+Medium Risk,6 months to 1 year,7,Mahindra Manulife Mid Cap Fund,Mid Cap,Equity,4192,0.45,3.6,25.6,29.0,100,4,Very low expense ratio for mid-cap
+Medium Risk,6 months to 1 year,8,Sundaram Mid Cap Fund,Mid Cap,Equity,13235,0.92,7.7,25.3,27.1,100,4,Stable mid-cap choice
+Medium Risk,6 months to 1 year,9,ITI Mid Cap Fund,Mid Cap,Equity,1290,0.51,5.7,25.1,,100,4,Emerging performer
+Medium Risk,6 months to 1 year,10,Kotak Midcap Fund,Mid Cap,Equity,60385,0.37,6.0,22.7,27.5,100,4,"Large AUM, low expense ratio"
+Medium Risk,> 1 year,1,HDFC Flexi Cap Fund,Flexi Cap,Equity,91041,1.36,9.3,21.33,26.51,100,5,Largest flexi-cap fund
+Medium Risk,> 1 year,2,Parag Parikh Flexi Cap Fund,Flexi Cap,Equity,125800,1.28,7.68,21.5,21.52,100,5,"Largest flexi-cap by AUM, consistent"
+Medium Risk,> 1 year,3,Motilal Oswal Flexi Cap Fund,Flexi Cap,Equity,14319,1.71,4.05,21.61,17.89,100,5,Top 3Y performer in flexi-cap
+Medium Risk,> 1 year,4,Invesco India Flexi Cap Fund,Flexi Cap,Equity,4380,1.85,4.95,21.43,18.84,100,5,Strong 3Y performance
+Medium Risk,> 1 year,5,Kotak Flexi Cap Fund,Flexi Cap,Equity,54083,1.43,8.09,16.37,17.63,100,5,"Large AUM, balanced approach"
+Medium Risk,> 1 year,6,ABSL Flexi Cap Fund,Flexi Cap,Equity,24443,1.66,8.05,17.15,18.51,100,5,"Well-established, consistent"
+Medium Risk,> 1 year,7,Franklin India Flexi Cap Fund,Flexi Cap,Equity,19796,1.69,3.29,18.0,22.02,100,4,Good 5Y returns
+Medium Risk,> 1 year,8,HSBC Flexi Cap Fund,Flexi Cap,Equity,5267,1.92,3.07,19.42,19.39,100,4,International fund house
+Medium Risk,> 1 year,9,Edelweiss Flexi Cap Fund,Flexi Cap,Equity,3006,1.9,3.83,18.12,20.07,100,4,Solid performer
+Medium Risk,> 1 year,10,DSP Flexi Cap Fund,Flexi Cap,Equity,12198,1.71,2.44,17.01,18.02,100,4,Consistent mid-range performer
+High Risk,< 6 months,1,Quant Small Cap Fund,Small Cap,Equity,15737,1.25,3.5,24.52,35.06,1000,5,"Top small-cap performer, highest 5Y returns"
+High Risk,< 6 months,2,Invesco India Smallcap Fund,Small Cap,Equity,5297,1.23,8.42,26.68,32.15,100,5,"Strong performer, good AUM"
+High Risk,< 6 months,3,Bandhan Small Cap Fund,Small Cap,Equity,17380,1.15,31.85,22.4,16.76,100,5,"Largest small-cap fund, recent outperformance"
+High Risk,< 6 months,4,Tata Small Cap Fund,Small Cap,Equity,2016,1.35,12.05,22.35,24.1,100,5,Consistent performer across cycles
+High Risk,< 6 months,5,Mahindra Manulife Small Cap Fund,Small Cap,Equity,3540,1.32,10.52,22.4,,100,5,Strong recent performance
+High Risk,< 6 months,6,Nippon India Small Cap Fund,Small Cap,Equity,27066,1.08,16.76,20.36,19.16,100,4,Largest small-cap by AUM
+High Risk,< 6 months,7,PGIM India Small Cap Fund,Small Cap,Equity,3496,1.42,26.12,24.94,,100,4,Strong recent returns
+High Risk,< 6 months,8,Canara Robeco Small Cap Fund,Small Cap,Equity,5127,1.45,43.38,24.85,,100,4,Exceptional 1Y performance
+High Risk,< 6 months,9,ITI Small Cap Fund,Small Cap,Equity,1147,1.55,47.66,32.12,,100,4,"Top performer, newer fund"
+High Risk,< 6 months,10,LIC MF Small Cap Fund,Small Cap,Equity,13790,1.28,22.4,17.75,15.48,100,3,"LIC backing, moderate performer"
+High Risk,6 months to 1 year,1,Invesco India Focused Fund,Focused Equity,Equity,3600,1.45,43.21,28.5,19.2,100,5,"Top performer 2024, focused portfolio"
+High Risk,6 months to 1 year,2,Motilal Oswal Small Cap Fund,Small Cap,Equity,2400,1.35,27.85,25.8,22.5,100,5,Strong 3Y and 5Y performance
+High Risk,6 months to 1 year,3,WhiteOak Capital Small Cap Fund,Small Cap,Equity,1800,1.5,35.2,26.3,,100,4,Emerging strong performer
+High Risk,6 months to 1 year,4,Edelweiss Small Cap Fund,Small Cap,Equity,1200,1.4,20.5,23.07,20.8,100,4,Solid performer
+High Risk,6 months to 1 year,5,ICICI Prudential Midcap Fund,Mid Cap,Equity,6963,1.03,11.1,23.4,27.3,100,3,Solid mid-cap alternative
+High Risk,6 months to 1 year,6,DSP Top 100 Equity Fund,Multi-Cap,Equity,4530,1.08,15.5,20.1,21.3,100,4,Diversified top 100 companies
+High Risk,6 months to 1 year,7,Invesco India Focused Equity Fund,Focused Equity,Equity,2200,1.52,25.3,21.8,18.5,100,4,Concentrated bets
+High Risk,6 months to 1 year,8,Franklin India Build India Fund,Thematic/Sector,Equity,3731,1.45,11.1,27.91,31.56,500,4,"Infrastructure theme, strong 5Y"
+High Risk,6 months to 1 year,9,ICICI Prudential BHARAT 22 FOF (can be upgraded to High Risk),Thematic/Sector,Equity,2353,0.12,1.8,26.95,33.13,5000,5,"Diversified equity theme, ultra-low cost"
+High Risk,6 months to 1 year,10,Axis Long Term Equity Fund,Tax-Efficient Equity,Equity,2000,1.32,12.8,19.5,17.8,100,3,Tax-efficient growth option
+High Risk,> 1 year,1,Motilal Oswal Midcap Fund,Mid Cap,Equity,37500,0.7,-0.8,27.5,33.0,100,5,Best 5Y mid-cap returns
+High Risk,> 1 year,2,Quant Small Cap Fund,Small Cap,Equity,15737,1.25,3.5,24.52,35.06,1000,5,Highest 5Y small-cap returns
+High Risk,> 1 year,3,Invesco India Smallcap Fund,Small Cap,Equity,5297,1.23,8.42,26.68,32.15,100,5,Consistent small-cap outperformer
+High Risk,> 1 year,4,HDFC Mid Cap Fund,Mid Cap,Equity,89383,0.71,9.2,26.6,29.5,100,5,"Largest mid-cap, strong 5Y returns"
+High Risk,> 1 year,5,Edelweiss Mid Cap Fund,Mid Cap,Equity,12646,0.4,7.9,26.4,30.0,100,5,"Best mid-cap returns, low cost"
+High Risk,> 1 year,6,Franklin India Build India Fund,Thematic/Sector,Equity,3731,1.45,11.1,27.91,31.56,500,4,"Infrastructure theme, strong returns"
+High Risk,> 1 year,7,Invesco India Mid Cap Fund,Mid Cap,Equity,9319,0.54,14.5,28.4,28.7,100,4,Strong consistent performer
+High Risk,> 1 year,8,Tata Small Cap Fund,Small Cap,Equity,2016,1.35,12.05,22.35,24.1,100,5,Consistent small-cap performer
+High Risk,> 1 year,9,Nippon India Growth Mid Cap Fund,Mid Cap,Equity,41267,0.74,6.3,26.2,29.2,100,4,Large mid-cap fund
+High Risk,> 1 year,10,Bandhan Small Cap Fund,Small Cap,Equity,17380,1.15,31.85,22.4,16.76,100,5,"Largest small-cap, recent outperformance"
