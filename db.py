@@ -6,6 +6,7 @@ Traceability to SRS:
 - FR-R4 (Analytics & Metrics)
 - FR-R5 (Privacy & Consent)
 - FR-R6 (Future auth compatibility)
+
 """
 
 import os
