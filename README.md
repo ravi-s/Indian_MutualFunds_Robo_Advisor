@@ -85,7 +85,7 @@ Step 4 — Personalized Fund Recommendations
 ## 🗄️ Local Persistence (SQLite)
 All registration data is stored locally in:
 ```
-data/robo_advisor_phase2.db
+data/robo_advisor.db
 ```
 
 Fields stored:
