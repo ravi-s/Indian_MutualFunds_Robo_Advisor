@@ -1,0 +1,41 @@
+scheme_code,fund_name,fund_house,category,fund_type,aum_cr,exp_ratio,min_investment,rating,exit_load
+118825,HDFC Liquid Fund - Direct Plan - Growth,HDFC,Liquid,Debt,27500,0.375,500,4,Nil
+120516,Nippon India Liquid Fund - Direct Plan - Growth,Nippon India,Liquid,Debt,27500,0.375,500,4,Nil
+120505,ICICI Prudential Liquid Fund - Direct Plan - Growth,ICICI Prudential,Liquid,Debt,27500,0.375,500,4,Nil
+119596,Axis Liquid Fund - Direct Plan - Growth,Axis,Liquid,Debt,27500,0.375,500,4,Nil
+118777,Aditya Birla Sun Life Liquid Fund - Direct Plan - Growth,Aditya Birla Sun Life,Liquid,Debt,27500,0.375,500,4,Nil
+119598,Axis Treasury Advantage Fund - Direct Plan - Growth,Axis,Ultra Short Duration,Debt,6000,0.375,500,4,Nil
+118834,HDFC Ultra Short Term Fund - Direct Plan - Growth,HDFC,Ultra Short Duration,Debt,6000,0.375,500,4,0.15% if redeemed < 7 days
+120506,ICICI Prudential Ultra Short Term Fund - Direct Plan - Growth,ICICI Prudential,Ultra Short Duration,Debt,6000,0.375,500,4,Nil
+118781,Aditya Birla Sun Life Short Term Fund - Direct Plan - Growth,Aditya Birla Sun Life,Short Duration,Debt,15000,0.375,1000,4,Nil
+118835,HDFC Short Term Debt Fund - Direct Plan - Growth,HDFC,Short Duration,Debt,15000,0.375,1000,4,Nil
+118407,Bandhan Bond Fund Short Term Plan - Direct Growth,IDFC,Short Duration,Debt,15000,0.375,5000,4,Nil
+125503,SBI Banking & PSU Fund - Direct Plan - Growth,SBI,Banking & PSU,Debt,12500,0.375,1000,4,Nil
+118371,Bandhan Low Duration Fund Direct Growth,IDFC,Low Duration,Debt,7500,0.375,500,4,Nil
+120522,Nippon India Low Duration Fund - Direct Plan - Growth,Nippon India,Low Duration,Debt,7500,0.375,500,4,Nil
+120507,ICICI Prudential Gilt Fund - Direct Plan - Growth,ICICI Prudential,Gilt,Debt,6000,0.375,5000,4,Nil
+119177,SBI Magnum Gilt Fund - Direct Plan - Growth,SBI,Gilt,Debt,6000,0.375,5000,4,Nil
+120447,Axis Gilt Fund - Direct Plan - Growth,Axis,Gilt,Debt,6000,0.375,5000,4,Nil
+118493,SBI Conservative Hybrid Fund - Direct Plan - Growth,SBI,Conservative Hybrid,Hybrid,6000,0.95,5000,4,1% if redeemed < 1 year
+120509,ICICI Prudential Regular Savings Fund - Direct Plan - Growth,ICICI Prudential,Conservative Hybrid,Hybrid,6000,0.95,5000,4,1% if redeemed < 1 year
+118968,HDFC Balanced Advantage Fund - Direct Plan - Growth,HDFC,Balanced Advantage,Hybrid,55000,0.95,100,4,1% if redeemed < 1 year
+120511,ICICI Prudential Balanced Advantage Fund - Direct Plan - Growth,ICICI Prudential,Balanced Advantage,Hybrid,55000,0.95,1000,4,1% if redeemed < 1 year
+120538,Nippon India Balanced Advantage Fund - Direct Plan - Growth,Nippon India,Balanced Advantage,Hybrid,55000,0.95,500,4,1% if redeemed < 1 year
+120478,Axis Dynamic Equity Fund - Direct Plan - Growth,Axis,Dynamic Asset Allocation,Hybrid,9000,0.95,500,4,1% if redeemed < 1 year
+120510,ICICI Prudential Equity & Debt Fund - Direct Plan - Growth,ICICI Prudential,Aggressive Hybrid,Hybrid,30000,0.95,100,4,1% if redeemed < 1 year
+118272,Canara Robeco Equity Hybrid Fund - Direct Plan - Growth,Canara Robeco,Aggressive Hybrid,Hybrid,30000,0.95,1000,4,1% if redeemed < 1 year
+125497,HDFC Top 100 Fund - Direct Plan - Growth,HDFC,Large Cap,Equity,45000,0.825,100,4,1% if redeemed < 1 year
+120503,ICICI Prudential Bluechip Fund - Direct Plan - Growth,ICICI Prudential,Large Cap,Equity,45000,0.825,100,4,1% if redeemed < 1 year
+125494,Mirae Asset Large Cap Fund - Direct Plan - Growth,Mirae Asset,Large Cap,Equity,45000,0.825,1000,4,1% if redeemed < 1 year
+120716,Axis Bluechip Fund - Direct Plan - Growth,Axis,Large Cap,Equity,45000,0.825,100,4,1% if redeemed < 1 year
+118632,Nippon India Large Cap Fund - Direct Plan - Growth,Nippon India,Large Cap,Equity,45000,0.825,100,4,1% if redeemed < 1 year
+122639,Parag Parikh Flexi Cap Fund - Direct Plan - Growth,Parag Parikh,Flexi Cap,Equity,65000,0.825,1000,4,2% if redeemed < 1 year
+118989,HDFC Flexi Cap Fund - Direct Plan - Growth,HDFC,Flexi Cap,Equity,65000,0.825,100,4,1% if redeemed < 1 year
+125498,UTI Flexi Cap Fund - Direct Plan - Growth,UTI,Flexi Cap,Equity,65000,0.825,500,4,1% if redeemed < 1 year
+119597,HDFC Mid-Cap Opportunities Fund - Direct Plan - Growth,HDFC,Mid Cap,Equity,50000,0.825,100,4,1% if redeemed < 1 year
+120475,Kotak Emerging Equity Fund - Direct Plan - Growth,Kotak,Mid Cap,Equity,50000,0.825,1000,4,1% if redeemed < 1 year
+118749,Nippon India Growth Fund - Direct Plan - Growth,Nippon India,Mid Cap,Equity,50000,0.825,100,4,1% if redeemed < 1 year
+118778,Nippon India Small Cap Fund - Direct Plan - Growth,Nippon India,Small Cap,Equity,40000,0.825,100,4,1% if redeemed < 1 year
+120752,Quant Small Cap Fund - Direct Plan - Growth,Quant,Small Cap,Equity,40000,0.825,1000,4,2% if redeemed < 1 year
+119550,SBI Small Cap Fund - Direct Plan - Growth,SBI,Small Cap,Equity,40000,0.825,5000,4,1% if redeemed < 1 year
+120836,Kotak Small Cap Fund - Direct Plan - Growth,Kotak,Small Cap,Equity,40000,0.825,1000,4,1% if redeemed < 1 year
