@@ -1,0 +1,3 @@
+scheme_code,fund_name,issue_type,severity,message
+118933,Axis Gilt Fund - Direct Plan - Growth,STALE_NAV,MEDIUM,NAV is 2735 days old (last update: 2018-06-01)
+119561,Canara Robeco Equity Hybrid Fund - Direct Plan - Growth,INVALID_SCHEME,HIGH,Scheme code not found or inactive in MFAPI

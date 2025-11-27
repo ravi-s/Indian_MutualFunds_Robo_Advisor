@@ -1,0 +1,52 @@
+"""Configuration file for robo-advisor automation"""
+
+# API Configuration
+MFAPI_BASE_URL = "https://api.mfapi.in"
+API_TIMEOUT = 15
+RATE_LIMIT_DELAY = 0.5  # seconds between API calls
+
+# Output Configuration
+OUTPUT_DIR = "output"
+OUTPUT_FILENAME_TEMPLATE = "robo_advisor_recommendations_{year}_{month}.csv"
+
+# Email Configuration
+EMAIL_ENABLED = True
+SENDER_EMAIL = ""  # Set via environment variable
+RECIPIENT_EMAIL = ""  # Set via environment variable
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 587
+
+# Fund Selection Criteria
+MIN_AUM_CR = 100  # Minimum AUM in crores
+MIN_TRACK_RECORD_YEARS = 3
+MAX_EXPENSE_RATIO = 2.5
+MIN_RATING = 3
+
+# Suitability Matrix: (risk_profile, duration) -> allowed_categories
+SUITABILITY_MATRIX = {
+    ("Low Risk", "< 6 months"): ["Liquid"],
+    ("Low Risk", "6 months to 1 year"): ["Short Duration", "Ultra Short Duration", "Banking & PSU"],
+    ("Low Risk", "> 1 year"): ["Gilt", "Short Duration", "Banking & PSU"],
+    
+    ("Moderate Risk", "< 6 months"): ["Ultra Short Duration", "Liquid"],
+    ("Moderate Risk", "6 months to 1 year"): ["Conservative Hybrid", "Short Duration", "Low Duration"],
+    ("Moderate Risk", "> 1 year"): ["Aggressive Hybrid", "Balanced Advantage", "Large Cap"],
+    
+    ("Medium Risk", "< 6 months"): ["Low Duration", "Ultra Short Duration"],
+    ("Medium Risk", "6 months to 1 year"): ["Balanced Advantage", "Conservative Hybrid", "Dynamic Asset Allocation"],
+    ("Medium Risk", "> 1 year"): ["Large Cap", "Flexi Cap", "Mid Cap"],
+    
+    ("High Risk", "< 6 months"): ["Not recommended"],
+    ("High Risk", "6 months to 1 year"): ["Balanced Advantage", "Dynamic Asset Allocation"],
+    ("High Risk", "> 1 year"): ["Small Cap", "Mid Cap", "Flexi Cap"]
+}
+
+# Ranking Weights
+RANKING_WEIGHTS = {
+    "return_1y": 0.2,
+    "return_3y": 0.5,
+    "return_5y": 0.3
+}
+
+# Top N funds per risk/duration combination
+TOP_N_FUNDS = 10

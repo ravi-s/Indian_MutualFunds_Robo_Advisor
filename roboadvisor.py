@@ -489,7 +489,11 @@ def render_home_page():
     st.markdown("### Ready to begin?")
     if st.button("🚀 Start Your Assessment", use_container_width=True):
         st.session_state.current_step = "risk_assessment"
+        # Feedback footer
         st.rerun()
+    
+    render_feedback_footer()
+
 
 
 
@@ -539,6 +543,8 @@ def render_risk_assessment():
             # New Phase-2 flow: always move to registration next
             st.session_state.current_step = "registration"
             st.rerun()
+
+        render_feedback_footer()
 
 
 # -------------------------------------------------------------------
@@ -640,6 +646,8 @@ def registration_and_recommendation_flow(
         st.session_state.registration_id = None
         st.session_state.current_step = "home"
         st.rerun()
+    # Feedback footer
+    render_feedback_footer()
 
 
 # -------------------------------------------------------------------
@@ -699,6 +707,9 @@ def render_preference_input():
             st.session_state.current_step = "recommendations"
             st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
             st.rerun()
+
+        # Feedback footer
+        render_feedback_footer()
 
 
 # -------------------------------------------------------------------
@@ -770,12 +781,31 @@ def render_recommendations_display():
     ):
         st.session_state.current_step = "preference_input"
         st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
+        # Feedback footer
+        render_feedback_footer()
         st.rerun()
 
     if st.button("Back to Home"):
         st.session_state.current_step = "home"
         st.rerun()
+    # Feedback footer
+    render_feedback_footer()
 
+def render_feedback_footer():
+    st.markdown(
+        """
+        <hr style="margin-top:40px;margin-bottom:10px;">
+        <div style="font-size: 14px; color: #555;">
+            💬 <strong>Have feedback?</strong><br>
+            We would love to hear your thoughts.  
+            <a href="mailto:sankarsana@duck.com?subject=Feedback - Mutual Fund Robo-Advisor"
+                style="text-decoration: none; color: #1a73e8;">
+                👉 Send feedback via email
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # -------------------------------------------------------------------
 # Admin / Analytics page
