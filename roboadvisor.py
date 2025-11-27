@@ -267,21 +267,21 @@ def load_fund_data() -> pd.DataFrame:
     """Loads and validates the fund data."""
     try:
         df = pd.read_csv(CSV_FILE)
-        df.rename(columns=COLUMN_MAP, inplace=True)
+        # df.rename(columns=COLUMN_MAP, inplace=True)
 
-        required_internal_cols = list(COLUMN_MAP.values())
-        if not all(col in df.columns for col in required_internal_cols):
-            st.error(
-                "E006: CSV structure validation failed. "
-                "Required columns (or their mappings) are missing."
-            )
-            st.stop()
+        # required_internal_cols = list(COLUMN_MAP.values())
+        # if not all(col in df.columns for col in required_internal_cols):
+        #     st.error(
+        #         "E006: CSV structure validation failed. "
+        #         "Required columns (or their mappings) are missing."
+        #     )
+        #     st.stop()
 
         # Strip whitespace from key text columns
         df["risk_profile"] = df["risk_profile"].astype(str).str.strip()
         df["duration"] = df["duration"].astype(str).str.strip()
-        df["type"] = df["type"].astype(str).str.strip()
-        df["category"] = df["category"].astype(str).str.strip()
+        df["fund_type"] = df["fund_type"].astype(str).str.strip()
+        df["fund_category"] = df["fund_category"].astype(str).str.strip()
 
         # Ensure min_investment numeric
         df["min_investment"] = pd.to_numeric(df["min_investment"], errors="coerce").fillna(0)
@@ -343,14 +343,14 @@ def filter_and_sort_recommendations(
         # No specific rules – just return what we have
         df_step3 = df_step2
     else:
-        df_step3 = df_step2[df_step2["type"].isin(allowed_rules["Type"])].copy()
+        df_step3 = df_step2[df_step2["fund_type"].isin(allowed_rules["Type"])].copy()
         cats = allowed_rules.get("Category") or []
         if cats:
-            df_step3 = df_step3[df_step3["category"].isin(cats)].copy()
+            df_step3 = df_step3[df_step3["fund_category"].isin(cats)].copy()
 
     # Sort final list – rating high, 5Y high, 3Y high, expense_ratio low
     sorted_df = df_step3.sort_values(
-        by=["rating", "return_5y", "return_3y", "expense_ratio"],
+        by=["rating", "return_5y", "return_3y", "exp_ratio"],
         ascending=[False, False, False, True],
     )
 
@@ -367,19 +367,19 @@ def format_recommendation_table(df_sorted: pd.DataFrame, limit=None) -> pd.DataF
     display_df["return_1y"] = display_df["return_1y"].fillna(0).apply(format_percentage)
     display_df["return_3y"] = display_df["return_3y"].fillna(0).apply(format_percentage)
     display_df["return_5y"] = display_df["return_5y"].fillna(0).apply(format_percentage)
-    display_df["expense_ratio"] = display_df["expense_ratio"].apply(format_percentage)
+    display_df["exp_ratio"] = display_df["exp_ratio"].apply(format_percentage)
     display_df["min_investment"] = display_df["min_investment"].apply(format_currency)
 
     display_cols = [
         "Rank",
         "fund_name",
-        "category",
-        "type",
+        "fund_category",
+        "fund_type",
         "aum_cr",
         "return_1y",
         "return_3y",
         "return_5y",
-        "expense_ratio",
+        "exp_ratio",
         "min_investment",
         "rating",
         "remarks",
@@ -387,13 +387,13 @@ def format_recommendation_table(df_sorted: pd.DataFrame, limit=None) -> pd.DataF
 
     display_names = {
         "fund_name": "Fund Name",
-        "category": "Category",
-        "type": "Type",
+        "fund_category": "Category",
+        "fund_type": "Type",
         "aum_cr": "AUM (in Cr.)",
         "return_1y": "1Y Return",
         "return_3y": "3Y Return",
         "return_5y": "5Y Return",
-        "expense_ratio": "Expense Ratio",
+        "exp_ratio": "Expense Ratio",
         "min_investment": "Min Investment",
         "rating": "Rating",
         "remarks": "Remarks",
@@ -425,16 +425,74 @@ def init_session_state():
 # -------------------------------------------------------------------
 
 def render_home_page():
-    st.title("Mutual Fund Robo-Advisor")
-    st.markdown("### MVP: Risk Assessment, Registration & Recommendation Engine")
-    st.warning(
-        "**Disclaimer (N-1.3):** Past performance does not guarantee future results. "
-        "This tool does not execute financial transactions."
+    st.title("💡 Mutual Fund Robo-Advisor Prototype")
+    st.markdown("### A simple, intelligent way to explore mutual fund investments")
+
+    # ----------------------------------------
+    # Hero Section (visual intro)
+    # ----------------------------------------
+    c1, c2 = st.columns([1, 2.5])
+    with c1:
+        st.image(
+            "https://cdn-icons-png.flaticon.com/512/1055/1055644.png",
+            width=130,
+        )
+    with c2:
+        st.markdown(
+            """
+            Welcome! This prototype helps you:
+            - Understand your **risk tolerance**
+            - Capture basic investment preferences
+            - Receive a **personalized list** of suitable mutual funds  
+            
+            It’s designed to be simple, transparent, and educational — helping you gain clarity and
+            confidence in your investment decisions.
+            """
+        )
+
+    st.markdown("---")
+
+    # ----------------------------------------
+    # “How it works” interactive section
+    # ----------------------------------------
+    with st.expander("👉 How this prototype works"):
+        st.markdown(
+            """
+            **1. Risk Assessment**  
+            A short questionnaire helps determine your investment risk profile.  
+            
+            **2. Quick Registration**  
+            Only an email and consent are required.  
+            No marketing emails. No spam. No transactions.  
+            
+            **3. Investment Preferences**  
+            Provide your investment amount and time horizon.  
+            
+            **4. Recommendations**  
+            You’ll get a curated shortlist of mutual funds based on your profile and preferences.
+            """
+        )
+
+    # ----------------------------------------
+    # Highlight privacy & clarity
+    # ----------------------------------------
+    st.info(
+        "🔒 **Privacy Note:** This prototype stores minimal data locally for analytics only. "
+        "No emails will ever be sent. No financial transactions occur."
     )
 
-    if st.button("Start Risk Assessment", use_container_width=True):
+    st.markdown("---")
+
+    # ----------------------------------------
+    # Call-to-action
+    # ----------------------------------------
+    st.markdown("### Ready to begin?")
+    if st.button("🚀 Start Your Assessment", use_container_width=True):
         st.session_state.current_step = "risk_assessment"
         st.rerun()
+
+
+
 
 
 # -------------------------------------------------------------------
