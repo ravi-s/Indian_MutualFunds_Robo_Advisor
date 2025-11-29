@@ -1,5 +1,6 @@
 requests
-pandas
 python-dateutil
-numpy
 python-dotenv
+streamlit
+pandas
+numpy==1.26.4
