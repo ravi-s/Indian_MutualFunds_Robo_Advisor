@@ -525,26 +525,47 @@ def render_risk_assessment():
 
         if submitted:
             if len(answers_scores) != len(RISK_QUESTIONNAIRE):
-                st.error("F-1.3: Please ensure all questions are answered.")
+                st.error("Please ensure all questions are answered.")
                 return
-
-            total_score, category, description = calculate_risk_score(answers_scores)
-
-            st.session_state.risk_score = total_score
-            st.session_state.risk_category = category
-            st.session_state.risk_description = description
-            st.session_state.risk_answers = answers_scores
-
-            st.success(
-                f"✅ Your Risk Score is **{total_score}** (Range 13–45). "
-                f"Your Risk Category is **{category}** ({description})."
-            )
-
-            # New Phase-2 flow: always move to registration next
+    
+    totalscore, category, description = calculate_risk_score(answers_scores)
+    st.session_state.riskscore = totalscore
+    st.session_state.riskcategory = category
+    st.session_state.riskdescription = description
+    st.session_state.riskanswers = answers_scores
+    
+    # Show results immediately
+    st.success(
+        f"✅ Your Risk Score: **{totalscore}** (Range: 13-45)  \n"
+        f"📊 Your Risk Category: **{category}**  \n"
+        f"💡 {description}"
+    )
+    
+    st.markdown("---")
+    st.markdown("### What's Next?")
+    st.info(
+        "To get personalized mutual fund recommendations, you'll need to:\n"
+        "1. **Register** (email + consent)\n"
+        "2. Enter your investment preferences\n"
+        "3. View customized fund recommendations"
+    )
+    
+    
+    # Action buttons
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("📝 Continue to Registration", use_container_width=True, type="primary"):
             st.session_state.current_step = "registration"
             st.rerun()
+    
+    with col2:
+        if st.button("🚪 Exit to Home page", use_container_width=True):
+            st.session_state.clear()
+            init_session_state()
+            st.session_state.current_step = "home" # Go back to home
+            st.rerun()
 
-        render_feedback_footer()
+    render_feedback_footer()
 
 
 # -------------------------------------------------------------------
@@ -562,11 +583,16 @@ def registration_and_recommendation_flow(
       - If user does NOT register, they walk away after seeing risk category only.
       - If user registers (email + consent), they proceed to investment inputs.
     """
+    """Registration step mandatory for continuing to investment inputs."""
+    
+    # Show current risk status
+    st.info(f"📊 Your Risk Profile: **{risk_category}** (Score: {risk_score})")
+    
     st.markdown("---")
-    st.subheader("Step 2 of 4: Register to continue")
+    st.subheader("Step 2 of 4: Register to Continue")
     st.write(
-        "Register to access personalized mutual fund recommendations and "
-        "help us improve this prototype."
+        "Register to access personalized mutual fund recommendations "
+        "and help us improve this prototype."
     )
 
     # Keep risk data in state
@@ -646,6 +672,11 @@ def registration_and_recommendation_flow(
         st.session_state.registration_id = None
         st.session_state.current_step = "home"
         st.rerun()
+
+    if st.button("⬅️ Back to Risk Assessment"):
+        st.session_state.current_step = "risk_assessment"
+        st.rerun()
+
     # Feedback footer
     render_feedback_footer()
 
@@ -915,6 +946,9 @@ def main():
         render_preference_input()
     elif step == "recommendations":
         render_recommendations_display()
+    
+    
+
 
     # Debug sidebar
     st.sidebar.markdown("---")
