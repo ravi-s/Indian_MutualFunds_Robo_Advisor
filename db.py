@@ -15,7 +15,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Optional, Dict, Any, List, Tuple
 
-DEFAULT_DB_PATH = "data/robo_advisor.db"
+DEFAULT_DB_PATH = "/app/data/robo_advisor.db"
 
 
 def get_db_path() -> str:

@@ -529,10 +529,10 @@ def render_risk_assessment():
                 return
     
     totalscore, category, description = calculate_risk_score(answers_scores)
-    st.session_state.riskscore = totalscore
-    st.session_state.riskcategory = category
-    st.session_state.riskdescription = description
-    st.session_state.riskanswers = answers_scores
+    st.session_state.risk_score = totalscore
+    st.session_state.risk_category = category
+    st.session_state.risk_description = description
+    st.session_state.risk_answers = answers_scores
     
     # Show results immediately
     st.success(
