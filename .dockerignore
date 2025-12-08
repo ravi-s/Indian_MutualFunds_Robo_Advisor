@@ -13,3 +13,4 @@ venv/
 modules/__pycache__/
 utils/__pycache__/
 tests/__pycache__/
+*.log
