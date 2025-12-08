@@ -84,7 +84,7 @@ def save_registration(
     consent: bool,
     risk_score: Optional[int],
     risk_category: Optional[str],
-) -> int:
+) -> Optional[int]:
     """
     Insert a new registration row.
 
