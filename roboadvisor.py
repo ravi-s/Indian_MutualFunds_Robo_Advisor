@@ -181,6 +181,10 @@ def main():
     """Main application orchestration."""
     init_session_state()
     
+    # NEW - Initialize database (creates registrations + goals tables)
+    import db
+    db.init_db()
+    
     # Check for admin route
     if st.query_params.get("admin") == "1":
         render_admin_page()
@@ -194,10 +198,21 @@ def main():
         render_risk_assessment()
     
     elif st.session_state.current_step == "registration":
-        registration_and_recommendation_flow(
-            st.session_state.risk_score,
-            st.session_state.risk_category
-        )
+        risk_score = st.session_state.get("risk_score")
+        risk_category = st.session_state.get("risk_category")
+    
+        if risk_score is None or not risk_category:
+            st.error("⚠️ Risk assessment not completed.")
+            if st.button("Go Back to Risk Assessment"):
+                st.session_state.current_step = "risk_assessment"
+                st.rerun()
+        else:
+            try:
+                registration_and_recommendation_flow(risk_score, risk_category)
+            except Exception as e:
+                st.error(f"❌ Error: {str(e)}")
+                logger.error(f"Registration error: {e}", exc_info=True)
+
     
     elif st.session_state.current_step == "preference_input":
         render_preference_input()
@@ -205,11 +220,18 @@ def main():
     elif st.session_state.current_step == "recommendations":
         render_recommendations_display()
     
+    # NEW - Phase 3 Iteration 2: Goal Path
+    elif st.session_state.current_step == "goal_path_stage1":
+        from modules.goal_path import render_goal_path_stage1
+        render_goal_path_stage1()
+    
+    elif st.session_state.current_step == "goal_path_stage2":
+        from modules.goal_path import render_goal_path_stage2
+        render_goal_path_stage2()
+    
     else:
         st.error(f"Unknown step: {st.session_state.current_step}")
-        if st.button("Back to Home"):
-            st.session_state.current_step = "home"
-            st.rerun()
+
 
 
 if __name__ == "__main__":
