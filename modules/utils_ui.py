@@ -8,17 +8,52 @@ import streamlit as st
 from utils.constants import DEFAULT_DISPLAY_COUNT
 
 def init_session_state():
-    """Initialize session state on first load."""
+    """Initialize session state on first load - only set if not already present."""
+    # These should only be set if they don't exist
     if "current_step" not in st.session_state:
         st.session_state.current_step = "home"
+    
+    if "risk_answers" not in st.session_state:
         st.session_state.risk_answers = {}
+    
+    if "risk_category" not in st.session_state:
         st.session_state.risk_category = None
+    
+    if "risk_score" not in st.session_state:
         st.session_state.risk_score = 0
+    
+    if "risk_description" not in st.session_state:
         st.session_state.risk_description = ""
+    
+    if "investment_amount" not in st.session_state:
         st.session_state.investment_amount = None
+    
+    if "duration" not in st.session_state:
         st.session_state.duration = None
+    
+    if "display_limit" not in st.session_state:
         st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
+    
+    if "registration_id" not in st.session_state:
         st.session_state.registration_id = None
+    
+    # Phase 3 Iteration 2: Goal Path
+    if "goal_corpus" not in st.session_state:
+        st.session_state.goal_corpus = None
+    
+    if "goal_sip" not in st.session_state:
+        st.session_state.goal_sip = None
+    
+    if "goal_horizon" not in st.session_state:
+        st.session_state.goal_horizon = None
+    
+    if "goal_id" not in st.session_state:
+        st.session_state.goal_id = None
+    
+    if "revisiting_goal_id" not in st.session_state:
+        st.session_state.revisiting_goal_id = None
+
+
 
 def render_feedback_footer():
     """Render feedback footer at bottom of pages."""
@@ -80,7 +115,7 @@ def render_home_page():
     
     # CTA
     st.markdown("### Ready to begin?")
-    if st.button("🚀 Start Your Assessment", use_container_width=True):
+    if st.button("🚀 Start Your Assessment", width = 'stretch'):
         st.session_state.current_step = "risk_assessment"
         st.rerun()
     

@@ -8,6 +8,7 @@ import streamlit as st
 from datetime import datetime, timedelta
 import logging
 
+from modules.utils_ui import render_feedback_footer
 from utils.constants import (
     CATEGORY_RETURNS, CATEGORY_VOLATILITY, RISK_HIERARCHY, DURATION_MAP, ALLOWED_FUND_TYPES, 
     DURATION_HIERARCHY, DEFAULT_DISPLAY_COUNT, VOLATILITY_BENCHMARKS
@@ -372,7 +373,7 @@ def render_recommendations_display():
             "E005: No funds match your criteria. "
             "Try a different investment amount or duration."
         )
-        if st.button("Modify Preferences", use_container_width=True):
+        if st.button("Modify Preferences", use_ontainer_width=True):
             st.session_state.current_step = "preference_input"
             st.rerun()
         return
@@ -380,26 +381,41 @@ def render_recommendations_display():
     final_display_df = format_recommendation_table(
         recommended_funds, st.session_state.display_limit
     )
-    st.dataframe(final_display_df, use_container_width=True, hide_index=True)
+    st.dataframe(final_display_df, width = 'stretch', hide_index=True)
     
     # Show more button
     max_total_display = min(10, total_matches)
     if st.session_state.display_limit < max_total_display:
         if st.button(
             f"Show More ({st.session_state.display_limit} / {total_matches} funds shown)",
-            use_container_width=True,
+            width = 'stretch',
         ):
             st.session_state.display_limit = max_total_display
             st.rerun()
     elif total_matches > DEFAULT_DISPLAY_COUNT:
         st.info(f"Showing all {total_matches} matching funds.")
     
-    # Navigation buttons
-    if st.button("Modify Investment Preferences", use_container_width=True):
-        st.session_state.current_step = "preference_input"
-        st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
-        st.rerun()
+        # Navigation buttons
+    st.markdown("---")
+    st.markdown("### Next Steps")
     
-    if st.button("Back to Home", use_container_width=True):
-        st.session_state.current_step = "home"
-        st.rerun()
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("🎯 Create Investment Goal", width = 'stretch', type="primary"):
+            st.session_state.current_step = "goal_path_stage1"
+            st.rerun()
+    
+    with col2:
+        if st.button("Modify Preferences", width = 'stretch'):
+            st.session_state.current_step = "preference_input"
+            st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
+            st.rerun()
+    
+    with col3:
+        if st.button("Back to Home", width = 'stretch'):
+            st.session_state.current_step = "home"
+            st.rerun()
+# ===================================================================
+
+    render_feedback_footer()

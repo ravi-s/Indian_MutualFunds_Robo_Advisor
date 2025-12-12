@@ -131,6 +131,7 @@ def render_preference_input():
         )
         
         duration = st.selectbox(
+
             "Investment Duration:",
             options=DURATION_OPTIONS,
             index=default_duration_index,
@@ -138,7 +139,7 @@ def render_preference_input():
         )
         
         submitted = st.form_submit_button(
-            "Generate Recommendations (Step 4)", use_container_width=True
+            "Generate Recommendations (Step 4)", width = 'stretch'
         )
     
     if submitted:
