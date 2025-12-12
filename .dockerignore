@@ -10,7 +10,3 @@ __pycache__/
 .gitignore
 venv/
 .env/
-modules/__pycache__/
-utils/__pycache__/
-tests/__pycache__/
-*.log
