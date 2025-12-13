@@ -328,6 +328,23 @@ def render_recommendations_display():
     """Render fund recommendations page."""
     st.title("Fund Recommendations")
     st.subheader("Step 4 of 4: Your Customised Fund List")
+
+    # CRITICAL DISCLAIMER (Non-dismissable)
+    ack = st.session_state.get("recommendations_disclaimer_acknowledged", False)
+    if not ack:
+        st.error(
+            "⚠️ **DISCLAIMER: Educational and Informational Purpose Only**\n\n"
+            "These recommendations are for **educational and informational purposes only**.\n\n"
+            "They do **NOT** constitute financial or investment advice.\n\n"
+            "**Past performance does not guarantee future results**.\n\n"
+            "**We are NOT SEBI-registered investment advisors**.\n\n"
+            "Please consult a **certified financial advisor** before making any investment decisions."
+        )
+        if st.checkbox("✅ I acknowledge and accept these terms", key="rec_disclaim"):
+            st.session_state.recommendations_disclaimer_acknowledged = True
+            st.rerun()
+        else:
+            st.stop()
     
     # Mark recommendations_viewed for registered users
     reg_id = st.session_state.get("registration_id")
@@ -373,7 +390,7 @@ def render_recommendations_display():
             "E005: No funds match your criteria. "
             "Try a different investment amount or duration."
         )
-        if st.button("Modify Preferences", use_ontainer_width=True):
+        if st.button("Modify Preferences", width = 'stretch'):
             st.session_state.current_step = "preference_input"
             st.rerun()
         return

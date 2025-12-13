@@ -53,6 +53,16 @@ def init_session_state():
     if "revisiting_goal_id" not in st.session_state:
         st.session_state.revisiting_goal_id = None
 
+    # Phase 3a: Disclaimer acknowledgment flags
+    if "goal_path_disclaimer_acknowledged" not in st.session_state:
+        st.session_state.goal_path_disclaimer_acknowledged = False
+
+    if "goal_path_stage2_disclaimer_acknowledged" not in st.session_state:
+        st.session_state.goal_path_stage2_disclaimer_acknowledged = False
+        
+    if "recommendations_disclaimer_acknowledged" not in st.session_state:
+        st.session_state.recommendations_disclaimer_acknowledged = False
+
 
 
 def render_feedback_footer():

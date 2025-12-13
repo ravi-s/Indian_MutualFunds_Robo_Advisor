@@ -259,12 +259,31 @@ def render_goal_path_stage1():
     - Investment Horizon (years)
     - Risk Category (read-only, from Step 1)
     """
+    
     st.title("Goal Path: Stage 1")
     st.subheader("Step 5 of 6: Define Your Investment Goal")
     
-    # Display current risk profile
+    # CRITICAL DISCLAIMER (Non-dismissable)
+    ack = st.session_state.get("goal_path_disclaimer_acknowledged", False)
+    if not ack:
+        st.error(
+                "⚠️ **CRITICAL DISCLAIMER - MUST ACKNOWLEDGE**\n\n"
+                "This tool is for **informational purposes only**.\n\n"
+                "It does **NOT** constitute investment advice.\n\n"
+                "**Past performance is NO guarantee of future results**.\n\n"
+                "We are **NOT SEBI-registered investment advisors**.\n\n"
+                "Please consult a **certified financial advisor** before investing."
+            )
+        if st.checkbox("✅ I acknowledge this disclaimer and understand the risks"):
+                st.session_state.goal_path_disclaimer_acknowledged = True
+                st.rerun()
+        else:
+                st.stop()
+    
+        # Display current risk profile
     risk_category = st.session_state.get("risk_category")
     st.info(f"📊 Your Risk Profile: **{risk_category}**")
+
     
     # Input form
     with st.form("goal_path_stage1_form"):
@@ -357,6 +376,22 @@ def render_goal_path_stage2():
     """
     st.title("Goal Path: Stage 2")
     st.subheader("Step 6 of 6: Your Projections & Next Steps")
+    
+    # CRITICAL DISCLAIMER (Re-confirm for projections)
+    ack = st.session_state.get("goal_path_stage2_disclaimer_acknowledged", False)
+    if not ack:
+        st.warning(
+            "⚠️ **IMPORTANT DISCLAIMER**\n\n"
+            "The projections shown are **educational estimates for your information** based on historical averages.\n\n"
+            "They **DO NOT guarantee** actual returns.\n\n"
+            "Market conditions change. Consult a financial advisor before investing."
+        )
+        if st.checkbox("✅ I understand these are estimates and not guarantees", key="stage2_disclaim"):
+            st.session_state.goal_path_stage2_disclaimer_acknowledged = True
+            st.rerun()
+        else:
+            st.info("Please acknowledge the disclaimer to continue.")
+            st.stop()
     
     # Retrieve inputs from session state
     corpus = st.session_state.get("goal_corpus", 0)
