@@ -14,9 +14,15 @@ import pandas as pd
 from datetime import datetime
 import logging
 from typing import Optional
+from modules.pdf_export import generate_goal_pdf
 
+from modules.persistence import save_goal
 from utils.constants import (
-    CATEGORY_RETURNS, CATEGORY_VOLATILITY, VOLATILITY_BENCHMARKS
+    BASELINE_AS_OF,
+    CATEGORY_RETURNS, 
+    CATEGORY_VOLATILITY, 
+    VOLATILITY_BENCHMARKS,
+    RECENT_1YR_MARKET_RETURNS,
 )
 from utils.formatting import format_currency, format_percentage
 
@@ -206,15 +212,17 @@ def calculate_goal_projections(
     Returns:
         dict with projections and metadata
     """
-    # Get base assumptions
     assumptions = get_category_return_assumptions(risk_category)
     base_return = assumptions["expected"]
-    
-    # Apply mean reversion if recent return provided
-    if recent_1yr_return is not None:
-        adjusted_return = apply_mean_reversion(base_return, recent_1yr_return)
-    else:
-        adjusted_return = base_return
+
+    # Phase 3a: plug in real 1Y market data if not explicitly provided
+    if recent_1yr_return is None:
+        recent_1yr_return = RECENT_1YR_MARKET_RETURNS.get(risk_category, base_return)
+
+    # Always apply mean reversion using a concrete 1Y value
+    # Ensure recent_1yr_return is not None before passing to apply_mean_reversion
+    recent_1yr_return = recent_1yr_return if recent_1yr_return is not None else base_return
+    adjusted_return = apply_mean_reversion(base_return, recent_1yr_return)
     
     # Calculate projections
     conservative = calculate_corpus_growth(
@@ -232,6 +240,8 @@ def calculate_goal_projections(
     confidence = get_confidence_score(volatility, fund_age_years=10)  # Assuming mature fund
     confidence_pct = get_confidence_percentage(confidence)
     
+    mean_reversion_applied = (adjusted_return != base_return)
+
     return {
         "conservative": conservative,
         "expected": expected,
@@ -241,8 +251,9 @@ def calculate_goal_projections(
         "confidence": confidence,
         "confidence_percentage": confidence_pct,
         "volatility": volatility,
-        "mean_reversion_applied": recent_1yr_return is not None
+        "mean_reversion_applied": mean_reversion_applied,
     }
+
 
 
 # ===================================================================
@@ -421,6 +432,10 @@ def render_goal_path_stage2():
         risk_category=risk_category,
         recent_1yr_return=None  # Will add in Phase 3.2
     )
+    # st.write(f"Debug: mean_reversion_applied = {projections['mean_reversion_applied']}, "
+    #      f"base = {format_percentage(projections['base_return'])}, "
+    #      f"adjusted = {format_percentage(projections['adjusted_return'])}")
+
     
     # Display projections
     st.markdown("### Projected Corpus After {0} Years".format(horizon))
@@ -450,6 +465,12 @@ def render_goal_path_stage2():
     
     st.markdown("---")
     
+    # Phase 3a: Display baseline date
+    
+
+    st.info(f"📅 Return assumptions as of **{BASELINE_AS_OF}**, reviewed quarterly.",width='stretch')
+
+    st.markdown("---")
     # Confidence & Volatility
     st.markdown("### Projection Confidence")
     
@@ -469,21 +490,39 @@ def render_goal_path_stage2():
         badge = "🔴 **LOW** (25% confidence)"
         color = "red"
     
+    # Phase 3a: Show base return, 1Y recent, and adjusted explanation
+    recent_1yr = RECENT_1YR_MARKET_RETURNS.get(risk_category, projections['base_return'])
+    recent_1yr = recent_1yr if recent_1yr is not None else projections['base_return']
+
     st.markdown(f"""
-    **Confidence Level:** {badge}
-    
-    This confidence level is based on:
-    - **Volatility:** {format_percentage(volatility)}
-      - Lower volatility = Higher confidence in projections
-    - **Adjusted Return:** {format_percentage(adjusted_return)}
-      - Base return: {format_percentage(projections['base_return'])}
-      - Mean reversion applied: {'Yes' if projections['mean_reversion_applied'] else 'No'}
+        **Confidence Level:** {badge}
+
+        This confidence level is based on:
+
+        - **Volatility:** {format_percentage(volatility)}
+        - Lower volatility = Higher confidence in projections
+        - **Expected (Adjusted) Return:** {format_percentage(adjusted_return)}
+          - Long-term base: {format_percentage(projections['base_return'])}
+          - Recent 1Y performance: {format_percentage(recent_1yr)}
+          - Mean reversion applied: {'Yes ✓' if projections['mean_reversion_applied'] else 'No (market normal)'}
     """)
-    
     st.markdown("---")
     
     # Projection breakdown (optional advanced view)
     with st.expander("📊 Detailed Projection Breakdown"):
+        st.write("**How we calculated your projections:**")
+    
+        st.write(f"""
+            **Long-term base return** for {risk_category}: {format_percentage(projections['base_return'])}
+            - This is based:
+              - Based on 5+ years of historical data for your risk level.
+            - **Adjusted expected return** (final): {format_percentage(adjusted_return)}
+            - If the last year was unusually strong or weak, we gently adjust expectations.
+            - This is called **mean reversion**—extreme returns rarely persist.
+        """)
+    
+        st.markdown("---")
+    
         breakdown_df = pd.DataFrame({
             "Scenario": ["Conservative", "Expected", "Best Case"],
             "Annual Return": [
@@ -496,23 +535,21 @@ def render_goal_path_stage2():
                 format_currency(projections["expected"]),
                 format_currency(projections["best_case"])
             ]
-        })
-        st.dataframe(breakdown_df, width = 'stretch', hide_index=True)
+            })
+    st.dataframe(breakdown_df, width='stretch', hide_index=True)
     
     st.markdown("---")
-    
-    # Save & Share Section
-    st.markdown("### Save Your Goal")
-    
-    save_goal = st.checkbox("Save this goal for later reference")
-    
-    if save_goal:
-        email_option = st.checkbox("Email results to me (coming in Phase 3.3)")
-        
-        if st.button("💾 Save Goal", width = 'stretch', type="primary"):
+    st.subheader("Save & Download Your Goal")
+
+    # Ensure we have a goal_id in session (for PDF naming and future links)
+    # Read goal_id from session (if any)
+    goal_id = st.session_state.get("goalid")
+   
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("💾 Save Goal", use_container_width=True, type="primary"):
             try:
-                
-                
                 goal_data = {
                     "registration_id": st.session_state.get("registration_id"),
                     "corpus": corpus,
@@ -522,22 +559,52 @@ def render_goal_path_stage2():
                     "conservative_projection": projections["conservative"],
                     "expected_projection": projections["expected"],
                     "best_case_projection": projections["best_case"],
-                    "confidence": confidence,
+                    "confidence": projections["confidence"],
                     "adjusted_return": adjusted_return,
-                    "created_at": datetime.now().isoformat()
+                    "created_at": datetime.now().isoformat(),
                 }
-                
-                from modules.persistence import save_goal 
+
                 goal_id = save_goal(goal_data)
-                
-                st.session_state.goal_id = goal_id
-                
-                st.success(f"✅ Goal saved! Goal ID: **{goal_id}**")
-                st.info("You can revisit this goal anytime using your Goal ID.")
-                
+                st.session_state["goalid"] = goal_id
+                st.success(f"Goal saved! Goal ID: {goal_id}")
+                st.info("You can revisit this goal later using this ID or a shareable link (coming soon).")
             except Exception as e:
                 st.warning(f"Could not save goal: {e}")
                 logger.error(f"Error saving goal: {e}")
+
+    with col2:
+        # Only enable PDF download once projections are available (they are at this point)
+        disabled = goal_id is None
+        if st.button("📥 Generate PDF", use_container_width=True,disabled=disabled):
+            try:
+                if disabled:
+                    st.warning("Please save your goal first to generate a PDF.")
+                else:
+                    pdf_buffer = generate_goal_pdf(
+                        goal_id=goal_id,
+                        goal_name=f"{risk_category} Goal",
+                        goal_inputs={
+                            "startingcorpus": corpus,
+                            "monthlysip": sip,
+                            "horizonyears": horizon,
+                            "riskcategory": risk_category,
+                        },
+                        projections=projections,
+                        # For now, you can leave goal_url blank or point to your app root.
+                        goal_url="",
+                    )
+
+                    pdf_buffer.seek(0)
+                    st.download_button(
+                        label="Download Goal PDF",
+                        data=pdf_buffer,
+                        file_name=f"GoalPath_{goal_id}.pdf",
+                        mime="application/pdf",
+                    )
+            except Exception as e:
+                st.error(f"Error generating PDF: {e}")
+                logger.error(f"Error generating PDF: {e}")
+
     
     st.markdown("---")
     
