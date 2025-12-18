@@ -68,7 +68,8 @@ def init_session_state():
 def render_feedback_footer():
     """Render feedback footer at bottom of pages."""
     st.markdown("---")
-    st.caption("💬 Feedback? Issues? Let us know!")
+    st.caption("Feedback? Issues? Let us know!")
+    st.caption("[sankarsana@duck.com](mailto:sankarsana@duck.com)")
 
 
 def render_home_page():
