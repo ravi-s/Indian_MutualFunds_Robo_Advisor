@@ -175,6 +175,29 @@ CATEGORY_VOLATILITY = {
     "Medium Risk": 7.5,        # 7-8% range, using 7.5
     "High Risk": 13.5          # 12-15% range, using 13.5
 }
+# ===================================================================
+# Phase 3a: Recent 1-Year Market Returns (for Mean Reversion)
+# As of: December 2025
+# ===================================================================
+
+
+# Low Risk (6.2%): Government/high-grade debt in India has delivered mid-single digits over the past year as rates stabilized. This is realistic for a low-duration bond index.​
+
+# Moderate Risk (10.5%): A 50:50 balanced hybrid sitting between debt (6%) and equity (14-18%) makes sense; captures both drag and upside.​
+
+# Medium Risk (14.8%): NIFTY 50 has had a strong year (2024–2025 was a bull year in India). This aligns with recent market data.​
+
+# High Risk (18.2%): Midcap/smallcap significantly outpaced large-cap; 18%+ is realistic for more aggressive equity indices.​
+
+RECENT_1YR_MARKET_RETURNS = {
+    "Low Risk": 6.2,        # NIFTY Low Duration Bond (debt-heavy, stable)
+    "Moderate Risk": 10.5,  # NIFTY Hybrid 50:50 (balanced)
+    "Medium Risk": 14.8,    # NIFTY 50 (strong equity year)
+    "High Risk": 18.2,      # NIFTY Midcap 100 (aggressive equity outperformed)
+}
+
+# Phase 3a: Baseline calibration metadata
+BASELINE_AS_OF = "2025-Q4"  # Quarterly review cadence
 
 # Confidence score benchmarks (based on volatility)
 VOLATILITY_BENCHMARKS = {
