@@ -42,7 +42,14 @@ from modules.risk_assessment import render_risk_assessment, calculate_risk_score
 from modules.registration import registration_and_recommendation_flow, render_preference_input
 from modules.recommendations import apply_mean_reversion, render_recommendations_display
 
-from utils.constants import CATEGORY_RETURNS, CATEGORY_VOLATILITY, CSV_FILE, MIN_INVESTMENT_AMOUNT, DEFAULT_DISPLAY_COUNT
+from utils.constants import (
+                            CATEGORY_RETURNS, 
+                            CATEGORY_VOLATILITY,
+                            CSV_FILE, 
+                            # MIN_INVESTMENT_AMOUNT, 
+                            # DEFAULT_DISPLAY_COUNT,
+                            RECENT_1YR_MARKET_RETURNS,  # ← add this
+                            )
 
 # ===================================================================
 # STREAMLIT CONFIG
@@ -136,6 +143,7 @@ def render_admin_page():
         # Add this at the end of the admin page (around line 1100)
 
         with st.expander("🔬 Phase 3: Mean Reversion Debug"):
+
             st.subheader("Return Assumptions & Volatility")
         
             col1, col2 = st.columns(2)
@@ -152,6 +160,12 @@ def render_admin_page():
                 st.write("**Volatility by Risk Category:**")
                 for risk_cat, vol in CATEGORY_VOLATILITY.items():
                     st.write(f"**{risk_cat}:** {vol:.1f}%")
+                    
+            # NEW: Show the shared 1Y market returns used for mean reversion
+            st.markdown("---")
+            st.write("**Current 1Y Market Returns by Risk Category (used in projections):**")
+            for risk_cat, ret in RECENT_1YR_MARKET_RETURNS.items():
+                st.write(f"• {risk_cat}: **{ret:.1f}%**")
         
             # Mean reversion simulator
             st.markdown("---")
