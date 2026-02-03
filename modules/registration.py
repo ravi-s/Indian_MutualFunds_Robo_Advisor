@@ -6,6 +6,7 @@ User registration and preference input (Phase 2)
 import streamlit as st
 from utils.constants import DEFAULT_DISPLAY_COUNT, DURATION_OPTIONS
 from utils.validators import is_valid_email
+from modules.utils_ui import navigate_to_home
 
 
 def registration_and_recommendation_flow(risk_score: int, risk_category: str) -> None:
@@ -93,20 +94,29 @@ def registration_and_recommendation_flow(risk_score: int, risk_category: str) ->
             "Your risk category will stay in this session only."
         )
         st.session_state.registration_id = None
-        st.session_state.current_step = "home"
-        st.rerun()
+        navigate_to_home()
 
-    
+    if st.button("Cancel Registration and Go to Home"):
+        navigate_to_home()
+
     if st.button("⬅️ Back to Risk Assessment"):
         st.session_state.current_step = "risk_assessment"
         st.rerun()
 
 
-def render_preference_input():
-    """Render investment preferences input form."""
+def render_preference_input() -> None:
+    """
+    Render investment preferences input form.
+    
+    Captures investment amount and duration from user, with
+    validation and navigation options.
+    """
     st.title("Investment Preferences")
     st.subheader("Step 3 of 4: Input Investment Details")
-    st.info(f"Your assessed Risk Category: **{st.session_state.risk_category}**")
+    st.info(
+        f"Your assessed Risk Category: "
+        f"**{st.session_state.risk_category}**"
+    )
     
     with st.form("preference_form"):
         from utils.constants import MIN_INVESTMENT_AMOUNT
@@ -133,7 +143,6 @@ def render_preference_input():
         )
         
         duration = st.selectbox(
-
             "Investment Duration:",
             options=DURATION_OPTIONS,
             index=default_duration_index,
@@ -141,19 +150,26 @@ def render_preference_input():
         )
         
         submitted = st.form_submit_button(
-            "Generate Recommendations (Step 4)", width = 'stretch'
+            "Generate Recommendations (Step 4)", use_container_width=True
         )
     
     if submitted:
         from utils.constants import MIN_INVESTMENT_AMOUNT
         
-        if not isinstance(investment_amount, (int, float)) or investment_amount <= 0:
-            st.error("E003: Investment Amount must be a positive numeric value.")
+        if (
+            not isinstance(investment_amount, (int, float))
+            or investment_amount <= 0
+        ):
+            st.error(
+                "E003: Investment Amount must be a positive "
+                "numeric value."
+            )
             return
         
         if investment_amount < MIN_INVESTMENT_AMOUNT:
             st.error(
-                f"E004: Investment Amount must be a minimum of ₹{MIN_INVESTMENT_AMOUNT}."
+                f"E004: Investment Amount must be a minimum of "
+                f"₹{MIN_INVESTMENT_AMOUNT}."
             )
             return
         
@@ -162,3 +178,22 @@ def render_preference_input():
         st.session_state.current_step = "recommendations"
         st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
         st.rerun()
+    
+    st.markdown("---")
+    
+    # Navigation buttons
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        if st.button("⬅️ Back to Registration", use_container_width=True):
+            st.session_state.current_step = "registration"
+            st.rerun()
+    
+    with col2:
+        if st.button("🏠 Home", use_container_width=True):
+            navigate_to_home()
+    
+    with col3:
+        if st.button("Skip to Goals", use_container_width=True):
+            st.session_state.current_step = "goal_path_stage1"
+            st.rerun()
