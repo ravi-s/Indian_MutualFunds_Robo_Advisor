@@ -17,6 +17,7 @@ from typing import Optional
 from modules.pdf_export import generate_goal_pdf
 
 from modules.persistence import save_goal
+from modules.utils_ui import navigate_to_home
 from utils.constants import (
     BASELINE_AS_OF,
     CATEGORY_RETURNS, 
@@ -25,7 +26,6 @@ from utils.constants import (
     RECENT_1YR_MARKET_RETURNS,
 )
 from utils.formatting import format_currency, format_percentage
-
 logger = logging.getLogger(__name__)
 
 
@@ -370,9 +370,7 @@ def render_goal_path_stage1():
     
     with col2:
         if st.button("🏠 Home", width = 'stretch'):
-            st.session_state.clear()
-            st.session_state.current_step = "home"
-            st.rerun()
+            navigate_to_home()
 
 
 # ===================================================================
@@ -382,7 +380,7 @@ def render_goal_path_stage1():
 def render_goal_path_stage2():
     """
     Render Goal Path Stage 2: Display projections and save option.
-    
+
     Shows:
     - Conservative projection
     - Expected projection (with mean reversion applied)
@@ -392,172 +390,170 @@ def render_goal_path_stage2():
     - Option to save goal
     """
     st.title("Goal Path: Stage 2")
-    st.subheader("Step 6 of 6: Your Projections & Next Steps")
-    
-    # CRITICAL DISCLAIMER (Re-confirm for projections)
-    """ ack = st.session_state.get("goal_path_stage2_disclaimer_acknowledged", False)
-    if not ack:
-        st.warning(
-            "⚠️ **IMPORTANT DISCLAIMER**\n\n"
-            "The projections shown are **educational estimates for your information** based on historical averages.\n\n"
-            "They **DO NOT guarantee** actual returns.\n\n"
-            "Market conditions change. Consult a financial advisor before investing."
-        )
-        if st.checkbox("✅ I understand these are estimates and not guarantees", key="stage2_disclaim"):
-            st.session_state.goal_path_stage2_disclaimer_acknowledged = True
-            st.rerun()
-        else:
-            st.info("Please acknowledge the disclaimer to continue.")
-            st.stop() """
-    
+    st.subheader("Your Projections & Next Steps")
+
+    # Light disclaimer only (no blocking)
     st.caption(
-        "These projections are estimates based on past data. They are not guarantees of future performance."
+        "These projections are estimates based on past data. They are not guarantees "
+        "of future performance."
     )
 
-    # Retrieve inputs from session state
-    corpus = st.session_state.get("goal_corpus", 0)
-    sip = st.session_state.get("goal_sip", 0)
+    # Retrieve inputs from session state (works for both real goal and demo)
+    corpus = st.session_state.get("goal_corpus", 0.0)
+    sip = st.session_state.get("goal_sip", 0.0)
     horizon = st.session_state.get("goal_horizon", 5)
-    risk_category = st.session_state.get("risk_category", "Medium Risk")
-    
-    st.markdown(f"""
-    **Your Goal Summary:**
-    - Initial Corpus: {format_currency(corpus)}
-    - Monthly SIP: {format_currency(sip)}
-    - Investment Horizon: {horizon} years
-    - Risk Category: **{risk_category}**
-    """)
-    
-    st.markdown("---")
-    
-    # Calculate projections
-    if not risk_category:
-        st.error("Risk category not found. Please complete Step 1 first.")
+    risk_category = st.session_state.get("risk_category") or "Medium Risk"
+
+    # Guard against totally empty goal
+    if corpus == 0.0 and sip == 0.0:
+        st.warning(
+            "We need either an initial corpus or a monthly SIP greater than zero "
+            "to show a goal path. Please define a goal first."
+        )
+        if st.button("Go to Goal Input", use_container_width=True):
+            st.session_state.current_step = "goal_path_stage1"
+            st.rerun()
         return
-    
+
+    st.markdown(
+        f"""
+        **Your Goal Summary:**
+        - Initial Corpus: {format_currency(corpus)}
+        - Monthly SIP: {format_currency(sip)}
+        - Investment Horizon: {horizon} years
+        - Risk Category: **{risk_category}**
+        """
+    )
+
+    st.markdown("---")
+
+    # Calculate projections
     projections = calculate_goal_projections(
         corpus=corpus,
         sip=sip,
         horizon=horizon,
         risk_category=risk_category,
-        recent_1yr_return=None  # Will add in Phase 3.2
+        recent_1yr_return=None,  # uses RECENT_1YR_MARKET_RETURNS fallback
     )
-    # st.write(f"Debug: mean_reversion_applied = {projections['mean_reversion_applied']}, "
-    #      f"base = {format_percentage(projections['base_return'])}, "
-    #      f"adjusted = {format_percentage(projections['adjusted_return'])}")
 
-    
     # Display projections
-    st.markdown("### Projected Corpus After {0} Years".format(horizon))
-    
+    st.markdown(f"### Projected Corpus After {horizon} Years")
+
     col1, col2, col3 = st.columns(3)
-    
     with col1:
         st.metric(
             "🟢 Conservative",
             format_currency(projections["conservative"]),
-            help="Lower growth scenario"
+            help="Lower growth scenario",
         )
-    
     with col2:
         st.metric(
             "🟡 Expected",
             format_currency(projections["expected"]),
-            help="Most likely scenario (adjusted for market conditions)"
+            help="Most likely scenario (adjusted for market conditions)",
         )
-    
     with col3:
         st.metric(
             "🔵 Best Case",
             format_currency(projections["best_case"]),
-            help="Optimistic scenario"
+            help="Optimistic scenario",
         )
-    
-    st.markdown("---")
-    
-    # Phase 3a: Display baseline date
-    
-
-    st.info(f"📅 Return assumptions as of **{BASELINE_AS_OF}**, reviewed quarterly.",width='stretch')
 
     st.markdown("---")
+
+    # Baseline date
+    st.info(
+        f"📅 Return assumptions as of **{BASELINE_AS_OF}**, reviewed quarterly.",
+        width="stretch",
+    )
+
+    st.markdown("---")
+
     # Confidence & Volatility
     st.markdown("### Projection Confidence")
-    
+
     confidence = projections["confidence"]
     confidence_pct = projections["confidence_percentage"]
     volatility = projections["volatility"]
     adjusted_return = projections["adjusted_return"]
-    
-    # Confidence badge
+
     if confidence == "High":
         badge = "🟢 **HIGH** (70% confidence)"
-        color = "green"
     elif confidence == "Medium":
         badge = "🟡 **MEDIUM** (50% confidence)"
-        color = "orange"
     else:
         badge = "🔴 **LOW** (25% confidence)"
-        color = "red"
-    
-    # Phase 3a: Show base return, 1Y recent, and adjusted explanation
-    recent_1yr = RECENT_1YR_MARKET_RETURNS.get(risk_category, projections['base_return'])
-    recent_1yr = recent_1yr if recent_1yr is not None else projections['base_return']
 
-    st.markdown(f"""
+    recent_1yr = RECENT_1YR_MARKET_RETURNS.get(
+        risk_category, projections["base_return"]
+    )
+    recent_1yr = recent_1yr if recent_1yr is not None else projections["base_return"]
+
+    st.markdown(
+        f"""
         **Confidence Level:** {badge}
 
         This confidence level is based on:
 
         - **Volatility:** {format_percentage(volatility)}
-        - Lower volatility = Higher confidence in projections
+          - Lower volatility = Higher confidence in projections
         - **Expected (Adjusted) Return:** {format_percentage(adjusted_return)}
           - Long-term base: {format_percentage(projections['base_return'])}
           - Recent 1Y performance: {format_percentage(recent_1yr)}
           - Mean reversion applied: {'Yes ✓' if projections['mean_reversion_applied'] else 'No (market normal)'}
-    """)
+        """
+    )
+
     st.markdown("---")
-    
-    # Projection breakdown (optional advanced view)
+
+    # Projection breakdown (advanced view)
     with st.expander("📊 Detailed Projection Breakdown"):
         st.write("**How we calculated your projections:**")
-    
-        st.write(f"""
+
+        st.write(
+            f"""
             **Long-term base return** for {risk_category}: {format_percentage(projections['base_return'])}
-            - This is based:
-              - Based on 5+ years of historical data for your risk level.
+            - Based on historical data for your risk level.
             - **Adjusted expected return** (final): {format_percentage(adjusted_return)}
             - If the last year was unusually strong or weak, we gently adjust expectations.
             - This is called **mean reversion**—extreme returns rarely persist.
-        """)
-    
+            """
+        )
+
         st.markdown("---")
-    
-        breakdown_df = pd.DataFrame({
-            "Scenario": ["Conservative", "Expected", "Best Case"],
-            "Annual Return": [
-                format_percentage(get_category_return_assumptions(risk_category)["conservative"]),
-                format_percentage(adjusted_return),
-                format_percentage(get_category_return_assumptions(risk_category)["best_case"])
-            ],
-            "Final Corpus": [
-                format_currency(projections["conservative"]),
-                format_currency(projections["expected"]),
-                format_currency(projections["best_case"])
-            ]
-            })
-    st.dataframe(breakdown_df, width='stretch', hide_index=True)
-    
+
+        breakdown_df = pd.DataFrame(
+            {
+                "Scenario": ["Conservative", "Expected", "Best Case"],
+                "Annual Return": [
+                    format_percentage(
+                        get_category_return_assumptions(risk_category)[
+                            "conservative"
+                        ]
+                    ),
+                    format_percentage(adjusted_return),
+                    format_percentage(
+                        get_category_return_assumptions(risk_category)["best_case"]
+                    ),
+                ],
+                "Final Corpus": [
+                    format_currency(projections["conservative"]),
+                    format_currency(projections["expected"]),
+                    format_currency(projections["best_case"]),
+                ],
+            }
+        )
+        st.dataframe(breakdown_df, width="stretch", hide_index=True)
+
     st.markdown("---")
     st.subheader("Save & Download Your Goal")
 
     # Ensure we have a goal_id in session (for PDF naming and future links)
-    # Read goal_id from session (if any)
     goal_id = st.session_state.get("goalid")
-   
-    col1, col2 = st.columns(2)
 
-    with col1:
+    col_save, col_pdf = st.columns(2)
+
+    with col_save:
         if st.button("💾 Save Goal", use_container_width=True, type="primary"):
             try:
                 goal_data = {
@@ -577,15 +573,18 @@ def render_goal_path_stage2():
                 goal_id = save_goal(goal_data)
                 st.session_state["goalid"] = goal_id
                 st.success(f"Goal saved! Goal ID: {goal_id}")
-                st.info("You can revisit this goal later using this ID or a shareable link (coming soon).")
+                st.info(
+                    "You can revisit this goal later using this ID or a shareable link (coming soon)."
+                )
             except Exception as e:
                 st.warning(f"Could not save goal: {e}")
                 logger.error(f"Error saving goal: {e}")
 
-    with col2:
-        # Only enable PDF download once projections are available (they are at this point)
+    with col_pdf:
         disabled = goal_id is None
-        if st.button("📥 Generate PDF", use_container_width=True,disabled=disabled):
+        if st.button(
+            "📥 Generate PDF", use_container_width=True, disabled=disabled
+        ):
             try:
                 if disabled:
                     st.warning("Please save your goal first to generate a PDF.")
@@ -600,8 +599,7 @@ def render_goal_path_stage2():
                             "riskcategory": risk_category,
                         },
                         projections=projections,
-                        # For now, you can leave goal_url blank or point to your app root.
-                        goal_url="",
+                        goal_url="",  # can be updated later
                     )
 
                     pdf_buffer.seek(0)
@@ -615,41 +613,24 @@ def render_goal_path_stage2():
                 st.error(f"Error generating PDF: {e}")
                 logger.error(f"Error generating PDF: {e}")
 
-    
     st.markdown("---")
-    
-    st.markdown("### Try a sample goal (no email)")
+    st.markdown("### Next Steps")
 
-    if st.button("🎯 Try a Demo Goal Path", use_container_width=True):
-        # Set sensible demo defaults
-        st.session_state.risk_category = st.session_state.risk_category or "Medium Risk"
-        st.session_state.goal_corpus = 0.0
-        st.session_state.goal_sip = 25000.0
-        st.session_state.goal_horizon = 15
-        st.session_state.goal_path_disclaimer_acknowledged = False
-        st.session_state.goal_path_stage2_disclaimer_acknowledged = False
-        st.session_state.current_step = "goal_path_stage2"
-        st.rerun()
-
-    # Navigation
     col1, col2, col3 = st.columns(3)
-    
+
     with col1:
-        if st.button("⬅️ Back to Stage 1", width = 'stretch'):
+        if st.button("⬅️ Back to Stage 1", width="stretch"):
             st.session_state.current_step = "goal_path_stage1"
             st.rerun()
-    
+
     with col2:
-        if st.button("📋 View Recommendations", width = 'stretch'):
-            st.session_state.current_step = "recommendations"
-            st.rerun()
-    
-    with col3:
-        if st.button("🏠 Home", width = 'stretch'):
-            st.session_state.clear()
-            st.session_state.current_step = "home"
+        if st.button("📋 View Recommendations", width="stretch"):
+            st.session_state.current_step = "preference_input"
             st.rerun()
 
+    with col3:
+        if st.button("🏠 Home", width="stretch"):
+            navigate_to_home()
 
 # ===================================================================
 # HELPER: Get recommended funds for goal
