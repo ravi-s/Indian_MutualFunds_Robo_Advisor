@@ -18,11 +18,12 @@ def registration_and_recommendation_flow(risk_score: int, risk_category: str) ->
     """
     st.info(f"📊 Your Risk Profile: **{risk_category}** (Score: {risk_score})")
     st.markdown("---")
-    st.subheader("Step 2 of 4: Register to Continue")
+    st.subheader("Step 2 of 4: Register (optional but recommended)")
     st.write(
-        "Register to access personalized mutual fund recommendations "
-        "and help us improve this prototype."
+        "Register to save your goal, download PDFs later, and access personalized mutual fund recommendations. "
+        "If you prefer not to register, you can still try a sample goal path from the home page."
     )
+
     
     st.session_state.risk_score = risk_score
     st.session_state.risk_category = risk_category
@@ -86,14 +87,15 @@ def registration_and_recommendation_flow(risk_score: int, risk_category: str) ->
             st.session_state.current_step = "preference_input"
             st.rerun()
     
-    if st.button("Don't register / Exit"):
+    if st.button("Continue without registering / Exit"):
         st.info(
-            "You can restart later from the home page. "
-            "Your risk category remains available in this session."
+            "You can still explore the demo goal path from the home page. "
+            "Your risk category will stay in this session only."
         )
         st.session_state.registration_id = None
         st.session_state.current_step = "home"
         st.rerun()
+
     
     if st.button("⬅️ Back to Risk Assessment"):
         st.session_state.current_step = "risk_assessment"

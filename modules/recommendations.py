@@ -329,24 +329,30 @@ def render_recommendations_display():
     st.title("Fund Recommendations")
     st.subheader("Step 4 of 4: Your Customised Fund List")
 
-    # CRITICAL DISCLAIMER (Non-dismissable)
-    ack = st.session_state.get("recommendations_disclaimer_acknowledged", False)
-    if not ack:
-        st.error(
-            "⚠️ **DISCLAIMER: Educational and Informational Purpose Only**\n\n"
-            "These recommendations are for **educational and informational purposes only**.\n\n"
-            "They do **NOT** constitute financial or investment advice.\n\n"
-            "**Past performance does not guarantee future results**.\n\n"
-            "**We are NOT SEBI-registered investment advisors**.\n\n"
-            "Please consult a **certified financial advisor** before making any investment decisions."
+    # Lightweight disclaimer (no hard gate)
+    st.caption(
+        "These recommendations are for educational use only and are not "
+        "SEBI-registered investment advice. Please consult a qualified advisor "
+        "before investing."
+    )
+
+    # Ensure required preferences exist (fixes None -> float() crash)
+    investment_amount = st.session_state.get("investment_amount")
+    duration = st.session_state.get("duration")
+    risk_category = st.session_state.get("risk_category")
+
+    if investment_amount is None or duration is None or not risk_category:
+        st.warning(
+            "I need your investment amount, duration, and risk profile before "
+            "showing funds. Please fill in your preferences first."
         )
-        if st.checkbox("✅ I acknowledge and accept these terms", key="rec_disclaim"):
-            st.session_state.recommendations_disclaimer_acknowledged = True
+        if st.button("Go to Investment Preferences", use_container_width=True):
+            st.session_state.current_step = "preference_input"
             st.rerun()
-        else:
-            st.stop()
-    
-    # Mark recommendations_viewed for registered users
+        render_feedback_footer()
+        return
+
+    # Mark recommendations_viewed for registered users (non-blocking)
     reg_id = st.session_state.get("registration_id")
     if reg_id:
         try:
@@ -354,85 +360,90 @@ def render_recommendations_display():
             db.mark_recommendations_viewed(reg_id)
         except Exception:
             pass  # Non-blocking
-    
+
+    # Filtering summary
     st.markdown(
         f"**Filtering by:** "
-        f"Risk Profile: **{st.session_state.risk_category}**, "
-        f"Duration: **{st.session_state.duration}**, "
-        f"Min. Investment: **{format_currency(st.session_state.investment_amount)}**"
+        f"Risk Profile: **{risk_category}**, "
+        f"Duration: **{duration}**, "
+        f"Min. Investment: **{format_currency(investment_amount)}**"
     )
-    
+
+    # Load data and compute recommendations
     from roboadvisor import load_fund_data
     fund_df = load_fund_data()
     recommended_funds = filter_and_sort_recommendations(
         fund_df,
-        st.session_state.risk_category,
-        st.session_state.investment_amount,
-        st.session_state.duration,
+        risk_category,
+        investment_amount,
+        duration,
     )
-    
+
     # Check for stale data
     if not recommended_funds.empty:
-        stale_funds = recommended_funds[recommended_funds["last_updated"].apply(
-            lambda x: get_freshness_badge(x)['status'] == 'stale'
-        )]
-        
+        stale_funds = recommended_funds[
+            recommended_funds["last_updated"].apply(
+                lambda x: get_freshness_badge(x)["status"] == "stale"
+            )
+        ]
         if not stale_funds.empty:
             st.warning(
                 f"⚠️ **Data Alert:** {len(stale_funds)} fund(s) have data older than 4 weeks. "
                 f"Consider refreshing data by running the data pipeline."
             )
-    
+
     total_matches = len(recommended_funds)
-    
+
     if total_matches == 0:
         st.warning(
             "E005: No funds match your criteria. "
             "Try a different investment amount or duration."
         )
-        if st.button("Modify Preferences", width = 'stretch'):
+        if st.button("Modify Preferences", width="stretch"):
             st.session_state.current_step = "preference_input"
             st.rerun()
+        render_feedback_footer()
         return
-    
+
+    # Display table
     final_display_df = format_recommendation_table(
         recommended_funds, st.session_state.display_limit
     )
-    st.dataframe(final_display_df, width = 'stretch', hide_index=True)
-    
+    st.dataframe(final_display_df, width="stretch", hide_index=True)
+
     # Show more button
     max_total_display = min(10, total_matches)
     if st.session_state.display_limit < max_total_display:
         if st.button(
             f"Show More ({st.session_state.display_limit} / {total_matches} funds shown)",
-            width = 'stretch',
+            width="stretch",
         ):
             st.session_state.display_limit = max_total_display
             st.rerun()
     elif total_matches > DEFAULT_DISPLAY_COUNT:
         st.info(f"Showing all {total_matches} matching funds.")
-    
-        # Navigation buttons
+
+    # Navigation buttons
     st.markdown("---")
     st.markdown("### Next Steps")
-    
+
     col1, col2, col3 = st.columns(3)
-    
+
     with col1:
-        if st.button("🎯 Create Investment Goal", width = 'stretch', type="primary"):
+        if st.button("🎯 Create Investment Goal", width="stretch", type="primary"):
             st.session_state.current_step = "goal_path_stage1"
             st.rerun()
-    
+
     with col2:
-        if st.button("Modify Preferences", width = 'stretch'):
+        if st.button("Modify Preferences", width="stretch"):
             st.session_state.current_step = "preference_input"
             st.session_state.display_limit = DEFAULT_DISPLAY_COUNT
             st.rerun()
-    
+
     with col3:
-        if st.button("Back to Home", width = 'stretch'):
+        if st.button("Back to Home", width="stretch"):
             st.session_state.current_step = "home"
             st.rerun()
-# ===================================================================
 
     render_feedback_footer()
+

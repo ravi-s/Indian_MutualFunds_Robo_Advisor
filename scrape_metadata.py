@@ -128,48 +128,92 @@ def try_rupeevest_api(scheme_code):
 
 def scrape_with_multiple_methods(fund_name, scheme_code, fund_type, category):
     """
-    Try multiple methods to get metadata
+    Try multiple methods to get metadata with error handling
     Priority: MFAPI meta > Estimated values
     """
     logger.info(f"Processing: {fund_name[:60]}...")
     
     data = {}
     
-    # Method 1: Get basic info from MFAPI
-    mfapi_meta = get_scheme_metadata_from_mfapi(scheme_code)
-    if mfapi_meta:
-        logger.info(f"  ✓ Got metadata from MFAPI")
-        data.update(mfapi_meta)
+    try:
+        # Method 1: Get basic info from MFAPI
+        mfapi_meta = get_scheme_metadata_from_mfapi(scheme_code)
+        if mfapi_meta:
+            logger.info(f"  ✓ Got metadata from MFAPI")
+            data.update(mfapi_meta)
+    except Exception as e:
+        logger.debug(f"  MFAPI method failed: {e}")
     
-    # Method 2: Try RupeeVest API (may not work)
-    rupeevest_data = try_rupeevest_api(scheme_code)
-    if rupeevest_data:
-        logger.info(f"  ✓ Got data from RupeeVest API")
-        data.update({k: v for k, v in rupeevest_data.items() if v})
+    try:
+        # Method 2: Try RupeeVest API (may not work)
+        rupeevest_data = try_rupeevest_api(scheme_code)
+        if rupeevest_data:
+            logger.info(f"  ✓ Got data from RupeeVest API")
+            data.update({k: v for k, v in rupeevest_data.items() if v})
+    except Exception as e:
+        logger.debug(f"  RupeeVest method failed: {e}")
     
-    # Method 3: Use intelligent estimates
-    if 'aum_cr' not in data or 'exp_ratio' not in data:
+    # Method 3: Use intelligent estimates as fallback
+    try:
         logger.info(f"  ⚠ Using estimated values based on category")
         estimates = estimate_metadata_from_category(fund_type, category)
-        
-        if 'aum_cr' not in data:
-            data['aum_cr'] = estimates['aum_cr_estimated']
-            data['aum_source'] = 'estimated'
-        
-        if 'exp_ratio' not in data:
-            data['exp_ratio'] = estimates['exp_ratio_estimated']
-            data['exp_ratio_source'] = 'estimated'
-        
-        if 'rating' not in data:
-            data['rating'] = estimates['rating_estimated']
-            data['rating_source'] = 'estimated'
+        data.setdefault('aum_cr', estimates['aum_cr_estimated'])
+        data.setdefault('exp_ratio', estimates['exp_ratio_estimated'])
+        data.setdefault('rating', estimates['rating_estimated'])
+        data['data_source'] = 'estimated'
+    except Exception as e:
+        logger.error(f"  All methods failed for {fund_name}: {e}")
     
     return data
 
 
-def update_metadata_intelligently(df):
-    """Update metadata with intelligent fallbacks"""
-    updates = {
+def _update_row_with_scraped_data(
+    row: pd.Series, scraped_data: dict, updates: dict
+) -> pd.Series:
+    """
+    Update a single row with scraped metadata.
+
+    Args:
+        row: DataFrame row to update.
+        scraped_data: Dictionary containing scraped values.
+        updates: Dictionary tracking update counts.
+
+    Returns:
+        Updated row.
+    """
+    is_estimated = scraped_data.get('data_source') == 'estimated'
+    
+    if 'aum_cr' in scraped_data:
+        row['aum_cr'] = scraped_data['aum_cr']
+        updates['aum_cr'] += 1
+    
+    if 'exp_ratio' in scraped_data:
+        row['exp_ratio'] = scraped_data['exp_ratio']
+        updates['exp_ratio'] += 1
+    
+    if 'rating' in scraped_data:
+        row['rating'] = scraped_data['rating']
+        updates['rating'] += 1
+    
+    updates['estimated'] += 1 if is_estimated else 0
+    updates['verified'] += 0 if is_estimated else 1
+    
+    return row
+
+
+def update_metadata_intelligently(
+    df: pd.DataFrame
+) -> tuple[pd.DataFrame, dict]:
+    """
+    Update metadata with intelligent fallbacks.
+
+    Args:
+        df: DataFrame containing fund metadata.
+
+    Returns:
+        Tuple of updated DataFrame and update statistics.
+    """
+    updates: dict = {
         'aum_cr': 0,
         'exp_ratio': 0,
         'rating': 0,
@@ -183,33 +227,16 @@ def update_metadata_intelligently(df):
         fund_type = row['fund_type']
         category = row['category']
         
-        # Get data using multiple methods
         scraped_data = scrape_with_multiple_methods(
             fund_name, scheme_code, fund_type, category
         )
         
         if scraped_data:
-            # Track if data is estimated or verified
-            is_estimated = scraped_data.get('data_source') == 'estimated'
-            
-            if 'aum_cr' in scraped_data:
-                df.at[idx, 'aum_cr'] = scraped_data['aum_cr']
-                updates['aum_cr'] += 1
-            
-            if 'exp_ratio' in scraped_data:
-                df.at[idx, 'exp_ratio'] = scraped_data['exp_ratio']
-                updates['exp_ratio'] += 1
-            
-            if 'rating' in scraped_data:
-                df.at[idx, 'rating'] = scraped_data['rating']
-                updates['rating'] += 1
-            
-            if is_estimated:
-                updates['estimated'] += 1
-            else:
-                updates['verified'] += 1
+            df.loc[idx] = _update_row_with_scraped_data(
+                row, scraped_data, updates
+            )
         
-        time.sleep(0.5)  # Rate limiting
+        time.sleep(0.5)
     
     return df, updates
 

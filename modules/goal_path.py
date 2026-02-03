@@ -275,7 +275,7 @@ def render_goal_path_stage1():
     st.subheader("Step 5 of 6: Define Your Investment Goal")
     
     # CRITICAL DISCLAIMER (Non-dismissable)
-    ack = st.session_state.get("goal_path_disclaimer_acknowledged", False)
+    """ ack = st.session_state.get("goal_path_disclaimer_acknowledged", False)
     if not ack:
         st.error(
                 "⚠️ **CRITICAL DISCLAIMER - MUST ACKNOWLEDGE**\n\n"
@@ -289,7 +289,13 @@ def render_goal_path_stage1():
                 st.session_state.goal_path_disclaimer_acknowledged = True
                 st.rerun()
         else:
-                st.stop()
+                st.stop() """
+    
+    st.info(
+        "This goal path uses historical averages for your risk category to show "
+        "three possible scenarios. It is an estimate, not a guarantee."
+    )
+
     
         # Display current risk profile
     risk_category = st.session_state.get("risk_category")
@@ -389,7 +395,7 @@ def render_goal_path_stage2():
     st.subheader("Step 6 of 6: Your Projections & Next Steps")
     
     # CRITICAL DISCLAIMER (Re-confirm for projections)
-    ack = st.session_state.get("goal_path_stage2_disclaimer_acknowledged", False)
+    """ ack = st.session_state.get("goal_path_stage2_disclaimer_acknowledged", False)
     if not ack:
         st.warning(
             "⚠️ **IMPORTANT DISCLAIMER**\n\n"
@@ -402,8 +408,12 @@ def render_goal_path_stage2():
             st.rerun()
         else:
             st.info("Please acknowledge the disclaimer to continue.")
-            st.stop()
+            st.stop() """
     
+    st.caption(
+        "These projections are estimates based on past data. They are not guarantees of future performance."
+    )
+
     # Retrieve inputs from session state
     corpus = st.session_state.get("goal_corpus", 0)
     sip = st.session_state.get("goal_sip", 0)
@@ -608,6 +618,19 @@ def render_goal_path_stage2():
     
     st.markdown("---")
     
+    st.markdown("### Try a sample goal (no email)")
+
+    if st.button("🎯 Try a Demo Goal Path", use_container_width=True):
+        # Set sensible demo defaults
+        st.session_state.risk_category = st.session_state.risk_category or "Medium Risk"
+        st.session_state.goal_corpus = 0.0
+        st.session_state.goal_sip = 25000.0
+        st.session_state.goal_horizon = 15
+        st.session_state.goal_path_disclaimer_acknowledged = False
+        st.session_state.goal_path_stage2_disclaimer_acknowledged = False
+        st.session_state.current_step = "goal_path_stage2"
+        st.rerun()
+
     # Navigation
     col1, col2, col3 = st.columns(3)
     

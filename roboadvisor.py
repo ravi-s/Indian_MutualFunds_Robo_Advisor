@@ -37,6 +37,7 @@ logger = logging.getLogger(__name__)
 # IMPORTS: Modules & Utils
 # ===================================================================
 
+from modules.quick_risk import render_quick_risk
 from modules.utils_ui import init_session_state, render_home_page, render_feedback_footer
 from modules.risk_assessment import render_risk_assessment, calculate_risk_score
 from modules.registration import registration_and_recommendation_flow, render_preference_input
@@ -204,12 +205,23 @@ def main():
         render_admin_page()
         return
     
+    st.markdown(
+        """
+        <div style="background-color:#fff4e5; padding:8px 12px; border-radius:6px; border:1px solid #ffa94d;">
+        <b>Important:</b> This prototype is for educational purposes only. It is not SEBI-registered advice and 
+        does not guarantee returns. Please consult a qualified advisor before investing.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # Main flow orchestration
     if st.session_state.current_step == "home":
         render_home_page()
-    
     elif st.session_state.current_step == "risk_assessment":
         render_risk_assessment()
+    elif st.session_state.current_step == "quick_risk":
+        render_quick_risk()
     
     elif st.session_state.current_step == "registration":
         risk_score = st.session_state.get("risk_score")
