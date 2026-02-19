@@ -1,4 +1,4 @@
-# 📘 Indian Mutual Fund Robo-Advisor – MVP (Phase 1 + Phase 2)
+# 📘 Indian Mutual Fund Goal Path & SIP Planner – https://indianmf-roboadvisor.fly.dev/
 
 This project is a **self-contained robo-advisory prototype** built using **Python + Streamlit**, designed to guide users through:
 
