@@ -67,6 +67,20 @@ def init_session_state():
 
 
 def render_home_page():
+
+    st.markdown(
+    """
+    Free **Indian mutual fund goal-path & SIP planner** for DIY investors.
+
+    This browser-based tool lets you:
+    - Plan mutual fund SIPs for specific goals (home, education, retirement)
+    - See conservative / expected / best-case projections based on long-term category returns
+    - Download a clean PDF goal summary
+
+    It is an **educational tool only**, not SEBI-registered advice or a product sale.
+    """
+)
+
     """Render home page."""
 
     st.title("💡 Mutual Fund Goal Path Prototype")

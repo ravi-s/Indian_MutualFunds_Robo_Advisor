@@ -57,7 +57,7 @@ from utils.constants import (
 # ===================================================================
 
 st.set_page_config(
-    page_title="Mutual Fund Robo-Advisor",
+    page_title="Indian Mutual Fund Goal Path & SIP Planner | Free DIY Tool",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
