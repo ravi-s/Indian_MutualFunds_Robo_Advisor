@@ -119,17 +119,17 @@ def render_home_page():
 
             **2. Create a goal path**  
             Enter corpus, monthly SIP, and years. The tool shows three scenarios based on
-            long‑term category returns with a simple confidence indicator.[file:51]
+            long‑term category returns with a simple confidence indicator.
 
             **3. Review and download**  
             See the projected corpus for each scenario, review the assumptions, and
-            optionally download a **PDF goal summary**.[file:51][file:52]
+            optionally download a **PDF goal summary**.
 
             **4. (Optional) Register to save & see funds**  
             If you like the output, you can register with your email to:
             - Save goals and revisit them via link.
             - Get a shareable goal link / QR code and PDF.
-            - View a filtered list of mutual funds aligned with your profile.[file:47][file:51]
+            - View a filtered list of mutual funds aligned with your profile.
             """
         )
 
